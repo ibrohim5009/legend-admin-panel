@@ -1,4 +1,5 @@
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
 import {
   Card,
   CardHeader,
@@ -9,8 +10,45 @@ import {
   Button,
   Typography,
 } from "@material-tailwind/react";
+import { Navigate, Link } from "react-router-dom";
+
+const apiUrl = 'https://api.abdullajonov.uz/legend-backend-api/api/admin/login';
+
 
 export function SignIn() {
+  const [loginType, setLoginType] = useState();
+  const [name, setName] = useState('');
+  const [password, setPassword] = useState('');
+  const [tokens, setToken] = useState('');
+
+  const handleLogin = async () => {
+    try {
+      const response = await fetch(apiUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ login: name, password }),
+      });
+      toast.success('Ro\'yhatdan muoffaqiyatli o\'tdingiz', {
+        position: toast.POSITION.TOP_RIGHT
+      });
+      if (response.ok) {
+        const data = await response.json();
+        setToken(data.data.remember_token);
+        sessionStorage.setItem('token', data.data.remember_token);
+      } else {
+      }
+      toast.error('Ro\'yhatdan o\'tmadingiz', {
+        position: toast.POSITION.TOP_RIGHT
+      });
+    } catch (error) {
+
+    }
+  };
+  if (sessionStorage.getItem('token')) {
+    return <Navigate to="/" />;
+  }
   return (
     <>
       <img
@@ -30,14 +68,21 @@ export function SignIn() {
             </Typography>
           </CardHeader>
           <CardBody className="flex flex-col gap-4">
-            <Input type="email" label="Email" size="lg" />
-            <Input type="password" label="Password" size="lg" />
+            <Input type="email" label="Email" size="lg"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              required
+            />
+            <Input type="password" label="Password" size="lg" placeholder={"Password"}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required />
             <div className="-ml-2.5">
               <Checkbox label="Remember Me" />
             </div>
           </CardBody>
           <CardFooter className="pt-0">
-            <Button variant="gradient" fullWidth>
+            <Button type="button" onClick={handleLogin} variant="gradient" fullWidth>
               Sign In
             </Button>
             <Typography variant="small" className="mt-6 flex justify-center">
