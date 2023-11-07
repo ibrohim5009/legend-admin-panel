@@ -191,75 +191,77 @@ export function Tables() {
   return (
     <div className="mt-12 mb-8 flex flex-col gap-12">
       <Card>
-        <div >
+        <div>
           <Popup
-            trigger={<button className="bg-blue-500 text-white p-2 rounded-lg"> Mahsulot qo'shish </button>}
+            trigger={<button className="bg-blue-500 text-white p-2 rounded-lg ml-5 mt-5"> Mahsulot qo'shish </button>}
             modal
             contentStyle={contentStyle}
           >
-            {(close) => (
-              <form className="grid grid-rows-3 gap-4 h-[500px] w-[700px] p-5 bg-white relative" onSubmit={handleSubmit(onSubmit)}>
-                <a className="close absolute text-4xl right-10 top-2" onClick={close}>
-                  &times;
-                </a>
-                <input
-                  type="text"
-                  placeholder="Nomi"
-                  className="w-5/6 h-10 border border-black rounded-lg p-2 ml-4"
-                  {...register("name")}
-                />
-                {errors.name && <span className="text-red-500 text-sm ml-4">This field is required.</span>}
-                <input
-                  type="number"
-                  placeholder="Narxi"
-                  className="w-5/6 h-10 border border-black rounded-lg p-2 ml-4"
-                  {...register("price")}
-                />
-                {errors.price && <span className="text-red-500 text-sm ml-4">This field is required.</span>}
-                <input
-                  type="text"
-                  placeholder="Tavsifi"
-                  className="w-5/6 h-10 border border-black rounded-lg p-2 ml-4"
-                  {...register("description")}
-                />
-                {errors.description && <span className="text-red-500 text-sm ml-4">This field is required.</span>}
-                <div className="flex gap-6 ml-4">
+              {(close) => (
+              <div className=" -z-40 backdrop-blur bg-black">
+                <form className=" z-50 grid grid-rows-3 gap-4 h-[550px] w-[700px] p-5 bg-white rounded-lg" onSubmit={handleSubmit(onSubmit)}>
+                  <a className="close absolute text-4xl right-10 top-2 cursor-pointer" onClick={close}>
+                    &times;
+                  </a>
                   <input
-                    type="file"
-                    placeholder="image_upload"
-                    className="w-60 h-10 border border-black rounded-lg p-2 ml-4"
-                    {...register("image")}
+                    type="text"
+                    placeholder="Nomi"
+                    className="w-5/6 h-10 border border-black rounded-lg p-2 ml-4 mt-3"
+                    {...register("name")}
                   />
-                  {errors.image && <span className="text-red-500 text-sm ml-4">This field is required.</span>}
-                  <select name="" id="" {...register("category")} className="w-64 p-2 border border-black rounded-lg">
-                    {Array.isArray(data) ? (
-                      data.map((item) => (
-                        <option key={item.id} value={item.slug}>{item.name}</option>
-                      ))
-                    ) : (
-                      <option value="">Ma'lumotlar mavjud emas</option>
-                    )}
-                  </select>
-                </div>
-                <input
-                  type="text"
-                  placeholder="Nimadur"
-                  className="w-5/6 h-10 border border-black rounded-lg p-2 ml-4"
-                  {...register("slug")}
-                />
-                {errors.slug && <span className="text-red-500 text-sm ml-4">This field is required.</span>}
-                <input
-                  type="number"
-                  placeholder="Yetkazib berish narxi"
-                  className="w-5/6 h-10 border border-black rounded-lg p-2 ml-4"
-                  {...register("shipping_price")}
-                />
-                {errors.shipping_price && <span className="text-red-500 text-sm ml-4">This field is required.</span>}
-                <button type="submit" onClick={onSubmit} className="border border-black w-72 h-12 ml-4 mt-4">
-                  <span className="text-black">Ma'lumotlarni yuborish</span>
-                </button>
-              </form>
-            )}
+                  {errors.name && <span className="text-red-500 text-sm ml-4">This field is required.</span>}
+                  <input
+                    type="number"
+                    placeholder="Narxi"
+                    className="w-5/6 h-10 border border-black rounded-lg p-2 ml-4"
+                    {...register("price")}
+                  />
+                  {errors.price && <span className="text-red-500 text-sm ml-4">This field is required.</span>}
+                  <input
+                    type="text"
+                    placeholder="Tavsifi"
+                    className="w-5/6 h-10 border border-black rounded-lg p-2 ml-4"
+                    {...register("description")}
+                  />
+                  {errors.description && <span className="text-red-500 text-sm ml-4">This field is required.</span>}
+                  <div className="flex gap-6">
+                    <input
+                      type="file"
+                      placeholder="image_upload"
+                      className="w-60 h-10 border border-black rounded-lg p-2 ml-4"
+                      {...register("image")}
+                    />
+                    {errors.image && <span className="text-red-500 text-sm ml-4">This field is required.</span>}
+                    <select name="" id="" {...register("category")} className=" w-72 p-2 border border-black rounded-lg">
+                      {Array.isArray(data) ? (
+                        data.map((item) => (
+                          <option key={item.id} value={item.slug}>{item.name}</option>
+                        ))
+                      ) : (
+                        <option value="">Ma'lumotlar mavjud emas</option>
+                      )}
+                    </select>
+                  </div>
+                  <input
+                    type="text"
+                    placeholder="Nimadur"
+                    className="w-5/6 h-10 border border-black rounded-lg p-2 ml-4 mt-3"
+                    {...register("slug")}
+                  />
+                  {errors.slug && <span className="text-red-500 text-sm ml-4">This field is required.</span>}
+                  <input
+                    type="number"
+                    placeholder="Yetkazib berish narxi"
+                    className="w-5/6 h-10 border border-black rounded-lg p-2 ml-4 mt-3"
+                    {...register("shipping_price")}
+                  />
+                  {errors.shipping_price && <span className="text-red-500 text-sm ml-4">This field is required.</span>}
+                  <button type="submit" onClick={onSubmit} className="border border-black w-72 h-12 ml-4 mt-4">
+                    <span className="text-black">Ma'lumotlarni yuborish</span>
+                  </button>
+                </form>
+              </div>
+              )}
           </Popup>
         </div>
 
@@ -268,7 +270,7 @@ export function Tables() {
             datas.map((item) => (
               isEditing && editingId === item.id ? (
                 // Edit form
-                <div key={item.id} className="team-member p-4 border border-gray-300 rounded-lg m-4 w-80">
+                <div key={item.id} className=" p-4 border border-gray-300 rounded-lg m-4 w-80">
                   {isEditing && (
                     <form className="edit-form" onSubmit={handleSubmit(onEdit)}>
                       <input
@@ -343,26 +345,32 @@ export function Tables() {
                   )}
                 </div>
               ) : (
-                <div key={item.id} className="team-member border border-gray-300 rounded-lg m-4 w-80">
+                <div key={item.id} className="border border-gray-300 rounded-lg m-4 flex-wrap w-[305px]">
                   <img
                     src={`https://api.abdullajonov.uz/legend-backend-api/public/storage/images/${item.image}`}
                     alt=""
                     className="w-full h-48 object-cover rounded-t-lg"
                   />
                   <div className="flex flex-col p-4">
-                    <p className="text-xl font-semibold">{item.name}</p>
-                    <p className="text-lg">{item.price}</p>
-                    <p className="text-lg">{item.description}</p>
-                    <p className="text-lg">{item.slug}</p>
-                    <p className="text-lg">{item.shipping_price}</p>
-                    <p className="text-lg">{item.category}</p>
+                      <div className="flex justify-between">
+                        <p className="text-xl font-semibold">{item.name}</p>
+                        <p className="text-lg">{item.price}</p>
+                    </div>
+                      <div className="flex justify-between mt-3">
+                        <p className="text-lg">{item.description}</p>
+                        <p className="text-lg">{item.slug}</p>
+                   </div>
+                      <div className="flex justify-between mt-3">
+                        <p className="text-lg">{item.shipping_price}</p>
+                        <p className="text-lg">{item.category}</p>
+                    </div>
                   </div>
                   <div className="flex justify-center m-4">
-                    <button onClick={() => deleteNews(item.id)} className="border border-red-500 w-40 h-10 mr-2">
-                      <BsFillTrashFill className="text-red-500" />
+                    <button onClick={() => deleteNews(item.id)} className="border border-red-500 w-40 h-10 mr-2 flex items-center justify-center rounded-lg">
+                        <BsFillTrashFill className="text-red-500 text-xl" />
                     </button>
-                    <button onClick={() => editNews(item)} className="border border-blue-500 w-40 h-10">
-                      <FiEdit2 className="text-blue-500" />
+                      <button onClick={() => editNews(item)} className="border border-blue-500 w-40 h-10 flex items-center justify-center rounded-lg">
+                        <FiEdit2 className="text-blue-500 text-xl" />
                     </button>
                   </div>
                 </div>
