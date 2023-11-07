@@ -220,7 +220,6 @@ export function Tables() {
               name="search"
               label="Type here"
             />
-            <button type="submit">submit</button>
           </form>
         </div>
         {Array.isArray(products) ? (
