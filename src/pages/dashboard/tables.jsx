@@ -1,22 +1,21 @@
-import { Card } from "@material-tailwind/react";
-import React, { useState, useEffect } from "react";
+import { Card, Input } from "@material-tailwind/react";
 import axios from "axios";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { BsFillTrashFill } from 'react-icons/bs';
-import { FiEdit2 } from 'react-icons/fi';
+import { BsFillTrashFill } from "react-icons/bs";
+import { FiEdit2 } from "react-icons/fi";
+import { toast } from "react-toastify";
 import Popup from "reactjs-popup";
-import { ToastContainer, toast } from 'react-toastify';
-
 
 const contentStyle = {
   maxWidth: "100%",
   width: "100%",
-  height: '100%',
-  display: 'flex',
-  alignItems: 'center',
+  height: "100%",
+  display: "flex",
+  alignItems: "center",
   justifyContent: "center",
-  backgroundColor: 'rgba(0, 0, 0,0.65)',
-  backdropFilter: 'blur(4px)',
+  backgroundColor: "rgba(0, 0, 0,0.65)",
+  backdropFilter: "blur(4px)",
 };
 
 export function Tables() {
@@ -26,7 +25,7 @@ export function Tables() {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const token = sessionStorage.getItem('token'); // User token
+  const token = sessionStorage.getItem("token"); // User token
   const [editingId, setEditingId] = useState(null); // ID of the product being edited
   const [datas, setDatas] = useState([]); // Product data
   const [editFormData, setEditFormData] = useState({}); // Data for editing a product
@@ -55,8 +54,8 @@ export function Tables() {
       const response = await axios(options);
       fetchDatas();
       // Show a success toast notification
-      toast.success('Maxsulot qo\'shildi', {
-        position: toast.POSITION.TOP_RIGHT
+      toast.success("Maxsulot qo'shildi", {
+        position: toast.POSITION.TOP_RIGHT,
       });
     } catch (error) {
       if (error.response && error.response.status === 422) {
@@ -65,8 +64,8 @@ export function Tables() {
         console.error(error);
       }
       // Show an error toast notification
-      toast.error('Maxsulot qo\'shilmadi', {
-        position: toast.POSITION.TOP_RIGHT
+      toast.error("Maxsulot qo'shilmadi", {
+        position: toast.POSITION.TOP_RIGHT,
       });
     }
   };
@@ -74,7 +73,8 @@ export function Tables() {
   useEffect(() => {
     // Fetch product category data when the component is mounted
     async function makeRequest() {
-      const url = "https://api.abdullajonov.uz/legend-backend-api/api/child-category/get";
+      const url =
+        "https://api.abdullajonov.uz/legend-backend-api/api/child-category/get";
       const options = {
         method: "GET",
         headers: { Accept: "application/json" },
@@ -95,7 +95,9 @@ export function Tables() {
   const fetchDatas = async () => {
     try {
       // Fetch product data from the API
-      const response = await axios.get("https://api.abdullajonov.uz/legend-backend-api/api/products/get");
+      const response = await axios.get(
+        "https://api.abdullajonov.uz/legend-backend-api/api/products/get"
+      );
       const newsData = response.data.products.data;
       setDatas(newsData);
     } catch (error) {
@@ -127,14 +129,14 @@ export function Tables() {
       fetchDatas();
       setIsEditing(false);
       // Show a success toast notification
-      toast.success('Maxsulotni taxrirlash yakulandi', {
-        position: toast.POSITION.TOP_RIGHT
+      toast.success("Maxsulotni taxrirlash yakulandi", {
+        position: toast.POSITION.TOP_RIGHT,
       });
     } catch (error) {
       console.error(error);
       // Show an error toast notification
-      toast.error('Maxsulotni taxrirlash yakulanmadi', {
-        position: toast.POSITION.TOP_RIGHT
+      toast.error("Maxsulotni taxrirlash yakulanmadi", {
+        position: toast.POSITION.TOP_RIGHT,
       });
     }
   };
@@ -151,23 +153,23 @@ export function Tables() {
       );
       fetchDatas();
       // Show a success toast notification
-      toast.success('Maxsulotni o\'chirish yakulandi', {
-        position: toast.POSITION.TOP_RIGHT
+      toast.success("Maxsulotni o'chirish yakulandi", {
+        position: toast.POSITION.TOP_RIGHT,
       });
     } catch (error) {
       console.error(error);
       // Show an error toast notification
-      toast.error('Maxsulotni o\'chirish yakulanmadi', {
-        position: toast.POSITION.TOP_RIGHT
+      toast.error("Maxsulotni o'chirish yakulanmadi", {
+        position: toast.POSITION.TOP_RIGHT,
       });
     }
   };
 
   const fetchSearchData = async () => {
     const options = {
-      method: 'GET',
-      url: 'https://api.abdullajonov.uz/legend-backend-api/api/search',
-      headers: { Accept: 'application/json' }
+      method: "GET",
+      url: "https://api.abdullajonov.uz/legend-backend-api/api/search",
+      headers: { Accept: "application/json" },
     };
 
     try {
@@ -187,54 +189,264 @@ export function Tables() {
   useEffect(() => {
     fetchDatas(); // Fetch product data when the component is mounted
   }, []);
-
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(false);
+  async function handleSearch(e) {
+    e.preventDefault();
+    setLoading(true);
+    let { search } = e.target;
+    console.log(search);
+    try {
+      let response = await axios.get(
+        `https://api.abdullajonov.uz/legend-backend-api/api/search?query=${search.value}`
+      );
+      setProducts(response?.data?.data?.data);
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+      return;
+    }
+  }
+  console.log(products, "prducts");
+  const [input, setInput] = useState();
   return (
     <div className="mt-12 mb-8 flex flex-col gap-12">
       <Card>
-        <div >
+        <div className="mr-auto md:mr-4 md:w-56">
+          <form onSubmit={handleSearch}>
+            <Input
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              name="search"
+              label="Type here"
+            />
+            <button type="submit">submit</button>
+          </form>
+        </div>
+        {Array.isArray(products) ? (
+          input?.length !== 0 &&
+          products.map((item) =>
+            isEditing && editingId === item.id ? (
+              // Edit form
+              <div key={item.id} className="team-member">
+                {isEditing && (
+                  <form className="edit-form" onSubmit={handleSubmit(onEdit)}>
+                    <input
+                      type="text"
+                      placeholder="Nomi"
+                      className="name_input_edit"
+                      {...register("name")}
+                      defaultValue={editFormData.name}
+                    />
+                    {errors.name && (
+                      <span className="error-message">
+                        This field is required.
+                      </span>
+                    )}
+                    <input
+                      type="number"
+                      placeholder="Narxi"
+                      className="price_input_edit"
+                      {...register("price")}
+                      defaultValue={editFormData.price}
+                    />
+                    {errors.price && (
+                      <span className="error-message">
+                        This field is required.
+                      </span>
+                    )}
+                    <input
+                      type="text"
+                      placeholder="Tavsifi"
+                      className="description_input_edit"
+                      {...register("description")}
+                      defaultValue={editFormData.description}
+                    />
+                    {errors.description && (
+                      <span className="error-message">
+                        This field is required.
+                      </span>
+                    )}
+                    <input
+                      type="file"
+                      placeholder="image_upload"
+                      className="image_input_edit"
+                      {...register("image")}
+                    />
+                    {errors.image && (
+                      <span className="error-message">
+                        This field is required.
+                      </span>
+                    )}
+                    <select
+                      name="category"
+                      id="category"
+                      {...register("category")}
+                      className="parent_type_id_edit"
+                      defaultValue={editFormData.category}
+                    >
+                      {errors.category && (
+                        <span className="error-message">
+                          This field is required.
+                        </span>
+                      )}
+                      {Array.isArray(data) ? (
+                        data.map((item) => (
+                          <option key={item.id} value={item.slug}>
+                            {item.name}
+                          </option>
+                        ))
+                      ) : (
+                        <option value="">Ma'lumotlar mavjud emas</option>
+                      )}
+                    </select>
+                    <input
+                      type="text"
+                      placeholder="Nimadur"
+                      className="slug_input_edit"
+                      {...register("slug")}
+                      defaultValue={editFormData.slug}
+                    />
+                    {errors.slug && (
+                      <span className="error-message">
+                        This field is required.
+                      </span>
+                    )}
+                    <input
+                      type="number"
+                      placeholder="Yetkazib berish narxi"
+                      className="shipping_input_edit"
+                      {...register("shipping_price")}
+                      defaultValue={editFormData.shipping_price}
+                    />
+                    {errors.shipping_price && (
+                      <span className="error-message">
+                        This field is required.
+                      </span>
+                    )}
+                    <button type="submit" className="custom_btn_edit">
+                      <span>Ma'lumotlarni saqlash</span>
+                    </button>
+                  </form>
+                )}
+              </div>
+            ) : (
+              // Displaying item details
+              <div key={item.id} className="team-member">
+                <img
+                  src={`https://api.abdullajonov.uz/legend-backend-api/public/storage/images/${item.image}`}
+                  alt=""
+                />
+                <div className="flex_text_div_one">
+                  <p>{item.name}</p>
+                  <p>{item.price}</p>
+                </div>
+                <div className="flex_text_div_one">
+                  <p>{item.description}</p>
+                  <p>{item.slug}</p>
+                </div>
+                <div className="flex_text_div_one">
+                  <p>{item.shipping_price}</p>
+                  <p>{item.category}</p>
+                </div>
+                <div className="flex_edit_and_deleted_around">
+                  <button
+                    onClick={() => deleteNews(item.id)}
+                    className="product_deleted_button"
+                  >
+                    <BsFillTrashFill />
+                  </button>
+                  <button
+                    onClick={() => editNews(item)}
+                    className="product_edited_button"
+                  >
+                    <FiEdit2 />
+                  </button>
+                </div>
+              </div>
+            )
+          )
+        ) : (
+          <p>Ma'lumotlar mavjud emas</p>
+        )}
+        <div>
           <Popup
-            trigger={<button className="bg-blue-500 text-white p-2 rounded-lg"> Mahsulot qo'shish </button>}
+            trigger={
+              <button className="rounded-lg bg-blue-500 p-2 text-white">
+                {" "}
+                Mahsulot qo'shish{" "}
+              </button>
+            }
             modal
             contentStyle={contentStyle}
           >
             {(close) => (
-              <form className="grid grid-rows-3 gap-4 h-[500px] w-[700px] p-5 bg-white relative" onSubmit={handleSubmit(onSubmit)}>
-                <a className="close absolute text-4xl right-10 top-2" onClick={close}>
+              <form
+                className="relative grid h-[500px] w-[700px] grid-rows-3 gap-4 bg-white p-5"
+                onSubmit={handleSubmit(onSubmit)}
+              >
+                <a
+                  className="close absolute right-10 top-2 text-4xl"
+                  onClick={close}
+                >
                   &times;
                 </a>
                 <input
                   type="text"
                   placeholder="Nomi"
-                  className="w-5/6 h-10 border border-black rounded-lg p-2 ml-4"
+                  className="ml-4 h-10 w-5/6 rounded-lg border border-black p-2"
                   {...register("name")}
                 />
-                {errors.name && <span className="text-red-500 text-sm ml-4">This field is required.</span>}
+                {errors.name && (
+                  <span className="ml-4 text-sm text-red-500">
+                    This field is required.
+                  </span>
+                )}
                 <input
                   type="number"
                   placeholder="Narxi"
-                  className="w-5/6 h-10 border border-black rounded-lg p-2 ml-4"
+                  className="ml-4 h-10 w-5/6 rounded-lg border border-black p-2"
                   {...register("price")}
                 />
-                {errors.price && <span className="text-red-500 text-sm ml-4">This field is required.</span>}
+                {errors.price && (
+                  <span className="ml-4 text-sm text-red-500">
+                    This field is required.
+                  </span>
+                )}
                 <input
                   type="text"
                   placeholder="Tavsifi"
-                  className="w-5/6 h-10 border border-black rounded-lg p-2 ml-4"
+                  className="ml-4 h-10 w-5/6 rounded-lg border border-black p-2"
                   {...register("description")}
                 />
-                {errors.description && <span className="text-red-500 text-sm ml-4">This field is required.</span>}
-                <div className="flex gap-6 ml-4">
+                {errors.description && (
+                  <span className="ml-4 text-sm text-red-500">
+                    This field is required.
+                  </span>
+                )}
+                <div className="ml-4 flex gap-6">
                   <input
                     type="file"
                     placeholder="image_upload"
-                    className="w-60 h-10 border border-black rounded-lg p-2 ml-4"
+                    className="ml-4 h-10 w-60 rounded-lg border border-black p-2"
                     {...register("image")}
                   />
-                  {errors.image && <span className="text-red-500 text-sm ml-4">This field is required.</span>}
-                  <select name="" id="" {...register("category")} className="w-64 p-2 border border-black rounded-lg">
+                  {errors.image && (
+                    <span className="ml-4 text-sm text-red-500">
+                      This field is required.
+                    </span>
+                  )}
+                  <select
+                    name=""
+                    id=""
+                    {...register("category")}
+                    className="w-64 rounded-lg border border-black p-2"
+                  >
                     {Array.isArray(data) ? (
                       data.map((item) => (
-                        <option key={item.id} value={item.slug}>{item.name}</option>
+                        <option key={item.id} value={item.slug}>
+                          {item.name}
+                        </option>
                       ))
                     ) : (
                       <option value="">Ma'lumotlar mavjud emas</option>
@@ -244,18 +456,30 @@ export function Tables() {
                 <input
                   type="text"
                   placeholder="Nimadur"
-                  className="w-5/6 h-10 border border-black rounded-lg p-2 ml-4"
+                  className="ml-4 h-10 w-5/6 rounded-lg border border-black p-2"
                   {...register("slug")}
                 />
-                {errors.slug && <span className="text-red-500 text-sm ml-4">This field is required.</span>}
+                {errors.slug && (
+                  <span className="ml-4 text-sm text-red-500">
+                    This field is required.
+                  </span>
+                )}
                 <input
                   type="number"
                   placeholder="Yetkazib berish narxi"
-                  className="w-5/6 h-10 border border-black rounded-lg p-2 ml-4"
+                  className="ml-4 h-10 w-5/6 rounded-lg border border-black p-2"
                   {...register("shipping_price")}
                 />
-                {errors.shipping_price && <span className="text-red-500 text-sm ml-4">This field is required.</span>}
-                <button type="submit" onClick={onSubmit} className="border border-black w-72 h-12 ml-4 mt-4">
+                {errors.shipping_price && (
+                  <span className="ml-4 text-sm text-red-500">
+                    This field is required.
+                  </span>
+                )}
+                <button
+                  type="submit"
+                  onClick={onSubmit}
+                  className="ml-4 mt-4 h-12 w-72 border border-black"
+                >
                   <span className="text-black">Ma'lumotlarni yuborish</span>
                 </button>
               </form>
@@ -263,53 +487,76 @@ export function Tables() {
           </Popup>
         </div>
 
-        <div className="flex flex-wrap justify-center items-center m-20">
+        <div className="m-20 flex flex-wrap items-center justify-center">
           {Array.isArray(datas) ? (
-            datas.map((item) => (
+            datas.map((item) =>
               isEditing && editingId === item.id ? (
                 // Edit form
-                <div key={item.id} className="team-member p-4 border border-gray-300 rounded-lg m-4 w-80">
+                <div
+                  key={item.id}
+                  className="team-member m-4 w-80 rounded-lg border border-gray-300 p-4"
+                >
                   {isEditing && (
                     <form className="edit-form" onSubmit={handleSubmit(onEdit)}>
                       <input
                         type="text"
                         placeholder="Nomi"
-                        className="w-5/6 h-10 border border-black rounded-lg p-2 ml-4"
+                        className="ml-4 h-10 w-5/6 rounded-lg border border-black p-2"
                         {...register("name")}
                         defaultValue={editFormData.name}
                       />
-                      {errors.name && <span className="text-red-500 text-sm ml-4">This field is required.</span>}
+                      {errors.name && (
+                        <span className="ml-4 text-sm text-red-500">
+                          This field is required.
+                        </span>
+                      )}
                       <input
                         type="number"
                         placeholder="Narxi"
-                        className="w-5/6 h-10 border border-black rounded-lg p-2 ml-4"
+                        className="ml-4 h-10 w-5/6 rounded-lg border border-black p-2"
                         {...register("price")}
                         defaultValue={editFormData.price}
                       />
-                      {errors.price && <span className="text-red-500 text-sm ml-4">This field is required.</span>}
+                      {errors.price && (
+                        <span className="ml-4 text-sm text-red-500">
+                          This field is required.
+                        </span>
+                      )}
                       <input
                         type="text"
                         placeholder="Tavsifi"
-                        className="w-5/6 h-10 border border-black rounded-lg p-2 ml-4"
+                        className="ml-4 h-10 w-5/6 rounded-lg border border-black p-2"
                         {...register("description")}
                         defaultValue={editFormData.description}
                       />
-                      {errors.description && <span className="text-red-500 text-sm ml-4">This field is required.</span>}
+                      {errors.description && (
+                        <span className="ml-4 text-sm text-red-500">
+                          This field is required.
+                        </span>
+                      )}
                       <input
                         type="file"
                         placeholder="image_upload"
-                        className="w-5/6 h-10 border border-black rounded-lg p-2 ml-4"
+                        className="ml-4 h-10 w-5/6 rounded-lg border border-black p-2"
                         {...register("image")}
                       />
-                      {errors.image && <span className="text-red-500 text-sm ml-4">This field is required.</span>}
+                      {errors.image && (
+                        <span className="ml-4 text-sm text-red-500">
+                          This field is required.
+                        </span>
+                      )}
                       <select
                         name="category"
                         id="category"
                         {...register("category")}
-                        className="w-72 p-2 border border-black rounded-lg ml-4"
+                        className="ml-4 w-72 rounded-lg border border-black p-2"
                         defaultValue={editFormData.category}
                       >
-                        {errors.category && <span className="text-red-500 text-sm ml-4">This field is required.</span>}
+                        {errors.category && (
+                          <span className="ml-4 text-sm text-red-500">
+                            This field is required.
+                          </span>
+                        )}
                         {Array.isArray(data) ? (
                           data.map((item) => (
                             <option key={item.id} value={item.slug}>
@@ -323,31 +570,47 @@ export function Tables() {
                       <input
                         type="text"
                         placeholder="Nimadur"
-                        className="w-5/6 h-10 border border-black rounded-lg p-2 ml-4"
+                        className="ml-4 h-10 w-5/6 rounded-lg border border-black p-2"
                         {...register("slug")}
                         defaultValue={editFormData.slug}
                       />
-                      {errors.slug && <span className="text-red-500 text-sm ml-4">This field is required.</span>}
+                      {errors.slug && (
+                        <span className="ml-4 text-sm text-red-500">
+                          This field is required.
+                        </span>
+                      )}
                       <input
                         type="number"
                         placeholder="Yetkazib berish narxi"
-                        className="w-5/6 h-10 border border-black rounded-lg p-2 ml-4"
+                        className="ml-4 h-10 w-5/6 rounded-lg border border-black p-2"
                         {...register("shipping_price")}
                         defaultValue={editFormData.shipping_price}
                       />
-                      {errors.shipping_price && <span className="text-red-500 text-sm ml-4">This field is required.</span>}
-                      <button type="submit" className="border border-black w-80 h-10 ml-4 mt-4">
-                        <span className="text-black">Ma'lumotlarni saqlash</span>
+                      {errors.shipping_price && (
+                        <span className="ml-4 text-sm text-red-500">
+                          This field is required.
+                        </span>
+                      )}
+                      <button
+                        type="submit"
+                        className="ml-4 mt-4 h-10 w-80 border border-black"
+                      >
+                        <span className="text-black">
+                          Ma'lumotlarni saqlash
+                        </span>
                       </button>
                     </form>
                   )}
                 </div>
               ) : (
-                <div key={item.id} className="team-member border border-gray-300 rounded-lg m-4 w-80">
+                <div
+                  key={item.id}
+                  className="team-member m-4 w-80 rounded-lg border border-gray-300"
+                >
                   <img
                     src={`https://api.abdullajonov.uz/legend-backend-api/public/storage/images/${item.image}`}
                     alt=""
-                    className="w-full h-48 object-cover rounded-t-lg"
+                    className="h-48 w-full rounded-t-lg object-cover"
                   />
                   <div className="flex flex-col p-4">
                     <p className="text-xl font-semibold">{item.name}</p>
@@ -357,22 +620,27 @@ export function Tables() {
                     <p className="text-lg">{item.shipping_price}</p>
                     <p className="text-lg">{item.category}</p>
                   </div>
-                  <div className="flex justify-center m-4">
-                    <button onClick={() => deleteNews(item.id)} className="border border-red-500 w-40 h-10 mr-2">
+                  <div className="m-4 flex justify-center">
+                    <button
+                      onClick={() => deleteNews(item.id)}
+                      className="mr-2 h-10 w-40 border border-red-500"
+                    >
                       <BsFillTrashFill className="text-red-500" />
                     </button>
-                    <button onClick={() => editNews(item)} className="border border-blue-500 w-40 h-10">
+                    <button
+                      onClick={() => editNews(item)}
+                      className="h-10 w-40 border border-blue-500"
+                    >
                       <FiEdit2 className="text-blue-500" />
                     </button>
                   </div>
                 </div>
               )
-            ))
+            )
           ) : (
             <p className="text-lg">Ma'lumotlar mavjud emas</p>
           )}
         </div>
-
       </Card>
     </div>
   );
