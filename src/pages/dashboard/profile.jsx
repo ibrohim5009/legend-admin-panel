@@ -60,77 +60,51 @@ export function Profile() {
         <div className="absolute inset-0 h-full w-full bg-blue-500/50" />
       </div>
       <Card className="mx-3 -mt-16 mb-6 lg:mx-4">
-        <CardBody className="p-[150px] flex items-center">
-            <div className="bootstrap nimadur">
-              <div className="row">
-                <div className="col-xs-3 col-sm-3">
-                  <form className="form-horizontal" onSubmit={handleSubmit}>
-                    <div className="panel panel-default">
-                      <div className="panel-body text-center">
-                        <img
-                          src="https://bootdey.com/img/Content/avatar/avatar6.png"
-                          className="img-circle profile-avatar"
-                          alt="User avatar"
-                        />
-                      </div>
-                    </div>
-                    <div className="panel panel-default">
-                      <div className="panel-heading">
-                        <h4 className="panel-title">User info</h4>
-                      </div>
-                      <div className="panel-body">
-                        <div className="form-group">
-                          <label className="col-sm-2 control-label">Name</label>
-                          <div className="col-sm-10">
-                            <input
-                              type="text"
-                              name="name"
-                              className="form-control"
-                              value={formData.name}
-                              onChange={handleInputChange}
-                            />
-                          </div>
-                        </div>
-                        <div className="form-group">
-                          <label className="col-sm-2 control-label">Login</label>
-                          <div className="col-sm-10">
-                            <input
-                              type="text"
-                              name="login"
-                              className="form-control"
-                              value={formData.login}
-                              onChange={handleInputChange}
-                            />
-                          </div>
-                        </div>
-                        <div className="form-group">
-                          <label className="col-sm-2 control-label">Current password</label>
-                          <div className="col-sm-10">
-                            <input
-                              type="password"
-                              name="password"
-                              className="form-control"
-                              value={formData.password}
-                              onChange={handleInputChange}
-                            />
-                          </div>
-                        </div>
-                        <div className="form-group" style={{ marginTop: '20px' }}>
-                          <div className="col-sm-10 col-sm-offset-2">
-                            <button type="submit" className="btn btn-primary">
-                              Submit
-                            </button>
-                            <button type="reset" className="btn btn-default">
-                              Cancel
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </form>
-                </div>
+        <CardBody className=" flex items-center">
+          <div class="min-w-md w-full flex justify-center items-center">
+            <div class="bg-white min-w-md w-[1000px] shadow-lg p-4 space-y-4">
+              <div class="text-center">
+                <img src="https://bootdey.com/img/Content/avatar/avatar6.png" class="w-24 h-24 rounded-full mx-auto" alt="User avatar" />
               </div>
+              <form class="p-8 rounded-lg" onSubmit={handleSubmit}>
+                <h4 class="text-2xl font-bold mb-4 text-center">User Info</h4>
+                <div class="mb-4">
+                  <label class="font-semibold">Name</label>
+                  <input
+                    type="text"
+                    name="name"
+                    class="w-full py-2 px-3 border border-gray-300 rounded focus:outline-none focus:border-blue-500 text-xl"
+                    value={formData.name}
+                    onChange={handleInputChange}
+                  />
+                </div>
+                <div class="mb-4">
+                  <label class="font-semibold">Login</label>
+                  <input
+                    type="text"
+                    name="login"
+                    class="w-full py-2 px-3 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
+                    value={formData.login}
+                    onChange={handleInputChange}
+                  />
+                </div>
+                <div class="mb-6">
+                  <label class="font-semibold">Current Password</label>
+                  <input
+                    type="password"
+                    name="password"
+                    class="w-full py-2 px-3 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
+                    value={formData.password}
+                    onChange={handleInputChange}
+                  />
+                </div>
+                <div class="flex items-center justify-center gap-7">
+                  <button type="submit" class="bg-blue-500 text-white py-2 px-4 rounded cursor-pointer hover:bg-blue-600">Submit</button>
+                  <button type="reset" class="bg-gray-300 text-gray-700 py-2 px-4 rounded cursor-pointer hover:bg-gray-400">Cancel</button>
+                </div>
+              </form>
             </div>
+          </div>
         </CardBody>
       </Card>
     </>
