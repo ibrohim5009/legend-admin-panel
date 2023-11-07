@@ -8,6 +8,8 @@ import {
 } from "@heroicons/react/24/solid";
 import { Home, Profile, Tables, Notifications } from "@/pages/dashboard";
 import { SignIn, SignUp } from "@/pages/auth";
+import Categorytwo from "./Categorytwo";
+import Categorythree from "./Categorythree";
 
 const icon = {
   className: "w-5 h-5 text-inherit",
@@ -36,22 +38,22 @@ export const routes = [
         element: <Tables />,
       },
       {
-        icon: <BellIcon {...icon} />,
-        name: "Kategoriya",
+        icon: <TableCellsIcon {...icon} />,
+        name: "KategoriyaOne",
         path: "/notifactions",
         element: <Notifications />,
       },
-    ],
-  },
-  {
-    title: "auth pages",
-    layout: "auth",
-    pages: [
       {
-        icon: <ArrowRightOnRectangleIcon {...icon} />,
-        name: "sign in",
-        path: "/sign-in",
-        element: <SignIn />,
+        icon: <BellIcon {...icon} />,
+        name: "KategoriyaTwo",
+        path: "/kategoriyatwo",
+        element: <Categorytwo />,
+      },
+      {
+        icon: <TableCellsIcon {...icon} />,
+        name: "KategoriyaThree",
+        path: "/kategoriyathree",
+        element: <Categorythree />,
       },
     ],
   },
