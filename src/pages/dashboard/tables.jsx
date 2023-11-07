@@ -252,7 +252,7 @@ export function Tables() {
                     />
                     {errors.price && (
                       <span className="error-message">
-                        This field is required.
+                        This field is required
                       </span>
                     )}
                     <input
