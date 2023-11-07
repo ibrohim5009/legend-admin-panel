@@ -20,11 +20,7 @@ export function Auth() {
       path: "/dashboard/home",
       icon: UserIcon,
     },
-    {
-      name: "sign up",
-      path: "/auth/sign-up",
-      icon: UserPlusIcon,
-    },
+
     {
       name: "sign in",
       path: "/auth/sign-in",
@@ -46,9 +42,7 @@ export function Auth() {
             ))
         )}
       </Routes>
-      <div className="container absolute bottom-8 left-2/4 z-10 mx-auto -translate-x-2/4 text-white">
-        <Footer />
-      </div>
+
     </div>
   );
 }
