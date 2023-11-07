@@ -252,7 +252,7 @@ export function Tables() {
                     />
                     {errors.price && (
                       <span className="error-message">
-                        This field is required
+                        This field is required.
                       </span>
                     )}
                     <input
@@ -337,7 +337,7 @@ export function Tables() {
                   src={`https://api.abdullajonov.uz/legend-backend-api/public/storage/images/${item.image}`}
                   alt=""
                 />
-                <div className="flex_text_div_one">
+                <div className="flex ">
                   <p>{item.name}</p>
                   <p>{item.price}</p>
                 </div>
@@ -613,12 +613,18 @@ export function Tables() {
                     className="h-48 w-full rounded-t-lg object-cover"
                   />
                   <div className="flex flex-col p-4">
-                    <p className="text-xl font-semibold">{item.name}</p>
-                    <p className="text-lg">{item.price}</p>
-                    <p className="text-lg">{item.description}</p>
-                    <p className="text-lg">{item.slug}</p>
-                    <p className="text-lg">{item.shipping_price}</p>
-                    <p className="text-lg">{item.category}</p>
+                      <div className="flex justify-between">
+                        <p className="text-xl font-semibold">{item.name}</p>
+                        <p className="text-lg">{item.price}</p>
+                    </div>
+                      <div className="flex justify-between mt-3">
+                        <p className="text-lg">{item.description}</p>
+                        <p className="text-lg">{item.slug}</p>
+                    </div>
+                      <div className="flex justify-between mt-3">
+                        <p className="text-lg">{item.shipping_price}</p>
+                        <p className="text-lg">{item.category}</p>
+                   </div>
                   </div>
                   <div className="m-4 flex justify-center">
                     <button
