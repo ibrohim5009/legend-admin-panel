@@ -220,7 +220,7 @@ export function Tables() {
             />
           </form>
         </div>
-        <div className="grid grid-cols-4 justify-around">
+        <div className="grid grid-cols-4 gap-5 justify-around">
           {Array.isArray(products) ? (
             input?.length !== 0 &&
             products.map((item) =>
@@ -499,6 +499,8 @@ export function Tables() {
             )}
           </Popup>
         </div>
+
+        <div className=" mt-5 flex gap-5 items-center justify-around">
         <div className=" mt-5 grid grid-cols-4">
           {Array.isArray(datas) ? (
             datas.map((item) =>
