@@ -1,6 +1,5 @@
 import React, { Suspense, useEffect } from 'react';
-import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
-import { ToastContainer } from 'react-toastify';
+import { Navigate, Route, Routes, useNavigate } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css';
 import Loading from './pages/loading/Loading';
 const Dashboard = React.lazy(() => import('@/layouts/Dashboard'));
