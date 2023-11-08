@@ -59,7 +59,7 @@ export const routes = [
         icon: <CubeIcon {...icon} />,
         name: "KategoriyaThree",
         path: "/kategoriyathree",
-        element: <KategoriyaThree/>,
+        element: <KategoriyaThree />,
       },
       {
         icon: <BellIcon {...icon} />,

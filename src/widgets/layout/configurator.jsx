@@ -133,7 +133,7 @@ export function Configurator() {
             </Button>
           </div>
         </div>
-        <div className="mb-12">
+        {/* <div className="mb-12">
           <hr />
           <div className="flex items-center justify-between py-5">
             <Typography variant="h6" color="blue-gray">
@@ -146,7 +146,7 @@ export function Configurator() {
             />
           </div>
           <hr />
-        </div>
+        </div> */}
       </div>
     </aside>
   );

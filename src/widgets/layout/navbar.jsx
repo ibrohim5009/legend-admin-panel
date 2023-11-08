@@ -1,14 +1,10 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
 import {
-  Navbar as MTNavbar,
-  MobileNav,
-  Typography,
   Button,
-  IconButton,
+  Typography
 } from "@material-tailwind/react";
-import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+import PropTypes from "prop-types";
+import React from "react";
+import { Link } from "react-router-dom";
 
 export function Navbar({ brandName, routes, action }) {
   const [openNav, setOpenNav] = React.useState(false);
