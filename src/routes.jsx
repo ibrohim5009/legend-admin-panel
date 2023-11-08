@@ -1,14 +1,19 @@
-import { Home, Notifications, Profile, Tables } from "@/pages/dashboard";
 import {
-  ArrowRightOnRectangleIcon,
-  BellIcon,
   HomeIcon,
-  TableCellsIcon,
   UserCircleIcon,
+  TableCellsIcon,
+  BellIcon,
+  ArrowRightOnRectangleIcon,
   UserPlusIcon,
 } from "@heroicons/react/24/solid";
-import Categorythree from "./Categorythree";
-import Categorytwo from "./Categorytwo";
+import { Home, Profile, Tables } from "@/pages/dashboard";
+import { SignIn } from "@/pages/auth";
+import KategoriyaTwo from "./pages/kategories/KategoriyaTwo";
+import KategoriyaThree from "./pages/kategories/KategoriyaThree";
+import Kategoriya from "./pages/kategories/Kategoriya";
+import PrivacyPolice from "./pages/privacyandpolicy/PrivacyPolice";
+import History from "./pages/history/History";
+import News from "./pages/news/News";
 
 const icon = {
   className: "w-5 h-5 text-inherit",
@@ -24,24 +29,11 @@ export const routes = [
         path: "/home",
         element: <Home />,
       },
-
       {
-        icon: <TableCellsIcon {...icon} />,
-        name: "KategoriyaOne",
-        path: "/notifactions",
-        element: <Notifications />,
-      },
-      {
-        icon: <BellIcon {...icon} />,
-        name: "KategoriyaTwo",
-        path: "/kategoriyatwo",
-        element: <Categorytwo />,
-      },
-      {
-        icon: <TableCellsIcon {...icon} />,
-        name: "KategoriyaThree",
-        path: "/kategoriyathree",
-        element: <Categorythree />,
+        icon: <UserCircleIcon {...icon} />,
+        name: "profile",
+        path: "/profile",
+        element: <Profile />,
       },
       {
         icon: <TableCellsIcon {...icon} />,
@@ -50,13 +42,55 @@ export const routes = [
         element: <Tables />,
       },
       {
-        icon: <ArrowRightOnRectangleIcon {...icon} />,
-        name: "Log out",
-        path: "/auth/sign-in",
+        icon: <TableCellsIcon {...icon} />,
+        name: "KategoriyaOne",
+        path: "/kategoriaya",
+        element: <Kategoriya />,
+      },
+      {
+        icon: <BellIcon {...icon} />,
+        name: "KategoriyaTwo",
+        path: "/kategoriyatwo",
+        element: <KategoriyaTwo />,
+      },
+      {
+        icon: <TableCellsIcon {...icon} />,
+        name: "KategoriyaThree",
+        path: "/kategoriyathree",
+        element: <KategoriyaThree />,
+      },
+      {
+        icon: <BellIcon {...icon} />,
+        name: "PrivacyPolicy",
+        path: "/privacypolicy",
+        element: <PrivacyPolice />,
+      },
+      {
+        icon: <BellIcon {...icon} />,
+        name: "History",
+        path: "/history",
+        element: <History />,
+      },
+      {
+        icon: <BellIcon {...icon} />,
+        name: "News",
+        path: "/news",
+        element: <News />,
       },
     ],
   },
-
+  {
+    title: "auth pages",
+    layout: "auth",
+    pages: [
+      {
+        icon: <ArrowRightOnRectangleIcon {...icon} />,
+        name: "sign in",
+        path: "/sign-in",
+        element: <SignIn />,
+      },
+    ],
+  },
 ];
 
 export default routes;

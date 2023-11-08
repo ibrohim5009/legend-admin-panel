@@ -5,7 +5,6 @@ import {
 import React, { useState } from 'react';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
-import './profile.css'
 
 export function Profile() {
   const initialFormData = {

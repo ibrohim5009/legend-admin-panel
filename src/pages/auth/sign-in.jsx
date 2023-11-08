@@ -1,20 +1,54 @@
+import React, { useState, useEffect } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
 import {
-  Button,
   Card,
+  CardHeader,
   CardBody,
   CardFooter,
-  CardHeader,
-  Checkbox,
   Input,
+  Checkbox,
+  Button,
   Typography,
 } from "@material-tailwind/react";
-import { Link } from "react-router-dom";
+import { Navigate, Link } from "react-router-dom";
 
 const apiUrl = 'https://api.abdullajonov.uz/legend-backend-api/api/admin/login';
 
 
 export function SignIn() {
- 
+  const [loginType, setLoginType] = useState();
+  const [name, setName] = useState('');
+  const [password, setPassword] = useState('');
+  const [tokens, setToken] = useState('');
+
+  const handleLogin = async () => {
+    try {
+      const response = await fetch(apiUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ login: name, password }),
+      });
+      toast.success('Ro\'yhatdan muoffaqiyatli o\'tdingiz', {
+        position: toast.POSITION.TOP_RIGHT
+      });
+      if (response.ok) {
+        const data = await response.json();
+        setToken(data.data.remember_token);
+        sessionStorage.setItem('token', data.data.remember_token);
+      } else {
+      }
+      toast.error('Ro\'yhatdan o\'tmadingiz', {
+        position: toast.POSITION.TOP_RIGHT
+      });
+    } catch (error) {
+
+    }
+  };
+  if (sessionStorage.getItem('token')) {
+    return <Navigate to="/" />;
+  }
   return (
     <>
       <img

@@ -1,4 +1,4 @@
-import { useLocation, Link } from "react-router-dom";
+import { useLocation, Link, useNavigate } from "react-router-dom";
 import {
   Navbar,
   Typography,
@@ -31,7 +31,15 @@ export function DashboardNavbar() {
   const { fixedNavbar, openSidenav } = controller;
   const { pathname } = useLocation();
   const [layout, page] = pathname.split("/").filter((el) => el !== "");
+  const navigate = useNavigate();
+  const LogoutComponent = () => {
 
+    const token = sessionStorage.removeItem('token');
+    if (!token) {
+      navigate('/auth/sign-in');
+    }
+    return null;
+  };
   return (
     <Navbar
       color={fixedNavbar ? "white" : "transparent"}
@@ -83,11 +91,11 @@ export function DashboardNavbar() {
           >
             <Bars3Icon strokeWidth={3} className="h-6 w-6 text-blue-gray-500" />
           </IconButton>
-          <Link to="/profile">
             <Button
               variant="text"
               color="blue-gray"
-              className="hidden items-center gap-1 px-4 xl:flex"
+            className="hidden items-center gap-1 px-4 xl:flex"
+            onClick={LogoutComponent}
             >
               <UserCircleIcon className="h-5 w-5 text-blue-gray-500" />
             </Button>
@@ -98,7 +106,6 @@ export function DashboardNavbar() {
             >
               <UserCircleIcon className="h-5 w-5 text-blue-gray-500" />
             </IconButton>
-          </Link>
           <IconButton
             variant="text"
             color="blue-gray"
