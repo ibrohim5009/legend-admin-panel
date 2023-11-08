@@ -1,10 +1,12 @@
+import { Card } from '@material-tailwind/react'
 import React from 'react'
 
 const Categoryone = () => {
   return (
     <div>
-      salom
-    </div>
+     <Card>
+     </Card>
+         </div>
   )
 }
 

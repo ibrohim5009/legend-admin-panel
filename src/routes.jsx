@@ -1,15 +1,14 @@
+import { Home, Notifications, Profile, Tables } from "@/pages/dashboard";
 import {
-  HomeIcon,
-  UserCircleIcon,
-  TableCellsIcon,
-  BellIcon,
   ArrowRightOnRectangleIcon,
+  BellIcon,
+  HomeIcon,
+  TableCellsIcon,
+  UserCircleIcon,
   UserPlusIcon,
 } from "@heroicons/react/24/solid";
-import { Home, Profile, Tables, Notifications } from "@/pages/dashboard";
-import { SignIn, SignUp } from "@/pages/auth";
-import Categorytwo from "./Categorytwo";
 import Categorythree from "./Categorythree";
+import Categorytwo from "./Categorytwo";
 
 const icon = {
   className: "w-5 h-5 text-inherit",
@@ -25,18 +24,7 @@ export const routes = [
         path: "/home",
         element: <Home />,
       },
-      {
-        icon: <UserCircleIcon {...icon} />,
-        name: "profile",
-        path: "/profile",
-        element: <Profile />,
-      },
-      {
-        icon: <TableCellsIcon {...icon} />,
-        name: "Product qo'shish",
-        path: "/tables",
-        element: <Tables />,
-      },
+
       {
         icon: <TableCellsIcon {...icon} />,
         name: "KategoriyaOne",
@@ -55,8 +43,20 @@ export const routes = [
         path: "/kategoriyathree",
         element: <Categorythree />,
       },
+      {
+        icon: <TableCellsIcon {...icon} />,
+        name: "Product qo'shish",
+        path: "/tables",
+        element: <Tables />,
+      },
+      {
+        icon: <ArrowRightOnRectangleIcon {...icon} />,
+        name: "Log out",
+        path: "/auth/sign-in",
+      },
     ],
   },
+
 ];
 
 export default routes;
