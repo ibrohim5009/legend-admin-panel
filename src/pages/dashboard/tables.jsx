@@ -229,12 +229,23 @@ export function Tables() {
               isEditing && editingId === item.id ? (
                 // Edit form
                 <div key={item.id} className="m-4 w-80 rounded-lg border border-gray-300 p-4">
+        <div className="m-20 grid grid-cols-3 items-center justify-around">
+          {Array.isArray(datas) ? (
+            input?.length !== 0 &&
+            datas.map((item) =>
+              isEditing && editingId === item.id ? (
+                // Edit form
+                <div
+                  key={item.id}
+                  className="team-member m-4 w-80 rounded-lg border border-gray-300 p-4"
+                >
                   {isEditing && (
                     <form className="edit-form" onSubmit={handleSubmit(onEdit)}>
                       <input
                         type="text"
                         placeholder="Nomi"
                         className="w-full rounded-lg border border-black p-2"
+                        className="ml-4 h-10 w-5/6 rounded-lg border border-black p-2"
                         {...register("name")}
                         defaultValue={editFormData.name}
                       />
@@ -247,6 +258,7 @@ export function Tables() {
                         type="number"
                         placeholder="Narxi"
                         className="w-full mt-2 rounded-lg border border-black p-2"
+                        className="ml-4 h-10 w-5/6 rounded-lg border border-black p-2"
                         {...register("price")}
                         defaultValue={editFormData.price}
                       />
@@ -259,6 +271,7 @@ export function Tables() {
                         type="text"
                         placeholder="Tavsifi"
                         className="w-full mt-2 rounded-lg border border-black p-2"
+                        className="ml-4 h-10 w-5/6 rounded-lg border border-black p-2"
                         {...register("description")}
                         defaultValue={editFormData.description}
                       />
@@ -271,6 +284,7 @@ export function Tables() {
                         type="file"
                         placeholder="image_upload"
                         className="w-full mt-2 rounded-lg border border-black p-2"
+                        className="ml-4 h-10 w-5/6 rounded-lg border border-black p-2"
                         {...register("image")}
                       />
                       {errors.image && (
@@ -283,6 +297,7 @@ export function Tables() {
                         id="category"
                         {...register("category")}
                         className="w-full mt-2 rounded-lg border border-black p-2"
+                        className="ml-4 w-72 rounded-lg border border-black p-2"
                         defaultValue={editFormData.category}
                       >
                         {errors.category && (
@@ -304,6 +319,7 @@ export function Tables() {
                         type="text"
                         placeholder="Nimadur"
                         className="w-full mt-2 rounded-lg border border-black p-2"
+                        className="ml-4 h-10 w-5/6 rounded-lg border border-black p-2"
                         {...register("slug")}
                         defaultValue={editFormData.slug}
                       />
@@ -316,6 +332,7 @@ export function Tables() {
                         type="number"
                         placeholder="Yetkazib berish narxi"
                         className="w-full mt-2 rounded-lg border border-black p-2"
+                        className="ml-4 h-10 w-5/6 rounded-lg border border-black p-2"
                         {...register("shipping_price")}
                         defaultValue={editFormData.shipping_price}
                       />
@@ -327,6 +344,7 @@ export function Tables() {
                       <button
                         type="submit"
                         className="mt-2 w-full p-2 border border-black"
+                        className="ml-4 mt-4 h-10 w-80 border border-black"
                       >
                         <span className="text-black">
                           Ma'lumotlarni saqlash
@@ -340,6 +358,9 @@ export function Tables() {
                 <div
                   key={item.id}
                   className="team-member m-4 w-80 rounded-lg border border-gray-300 "
+                <div
+                  key={item.id}
+                  className="team-member m-4 w-80 rounded-lg border border-gray-300"
                 >
                   <img
                     src={`https://api.abdullajonov.uz/legend-backend-api/public/storage/images/${item.image}`}
@@ -374,6 +395,27 @@ export function Tables() {
                         <FiEdit2 className="text-blue-500 text-xl" />
                       </button>
                     </div>
+                    <p className="text-xl font-semibold">{item.name}</p>
+                    <p className="text-lg">{item.price}</p>
+                    <p className="text-lg">{item.description}</p>
+                    <p className="text-lg">{item.slug}</p>
+                    <p className="text-lg">{item.shipping_price}</p>
+                    <p className="text-lg">{item.category}</p>
+                  </div>
+                  <div className="m-4 flex justify-center">
+                    <button
+                      onClick={() => deleteNews(item.id)}
+                      className="mr-2 h-10 w-40 border border-red-500"
+                    >
+                      <BsFillTrashFill className="text-red-500" />
+                    </button>
+                    <button
+                      onClick={() => editNews(item)}
+                      className="h-10 w-40 border border-blue-500"
+                    >
+                      <FiEdit2 className="text-blue-500" />
+                    </button>
+                  </div>
                 </div>
               )
             )
@@ -381,6 +423,9 @@ export function Tables() {
             <p>Ma'lumotlar mavjud emas</p>
           )}
       </div>
+            <p className="text-lg">Ma'lumotlar mavjud emas</p>
+          )}
+        </div>
         <div>
           <Popup
             trigger={
@@ -500,6 +545,7 @@ export function Tables() {
         </div>
 
         <div className=" mt-5 grid grid-cols-4">
+        <div className="m-20 grid grid-cols-3 items-center justify-center justify-around">
           {Array.isArray(datas) ? (
             datas.map((item) =>
               isEditing && editingId === item.id ? (
