@@ -1,10 +1,12 @@
 import {
   HomeIcon,
   UserCircleIcon,
-  TableCellsIcon,
+  InformationCircleIcon,
   BellIcon,
   ArrowRightOnRectangleIcon,
-  UserPlusIcon,
+  CubeIcon,
+  FolderPlusIcon,
+  NewspaperIcon
 } from "@heroicons/react/24/solid";
 import { Home, Profile, Tables } from "@/pages/dashboard";
 import { SignIn } from "@/pages/auth";
@@ -36,25 +38,25 @@ export const routes = [
         element: <Profile />,
       },
       {
-        icon: <TableCellsIcon {...icon} />,
+        icon: <FolderPlusIcon {...icon} />,
         name: "Product qo'shish",
         path: "/tables",
         element: <Tables />,
       },
       {
-        icon: <TableCellsIcon {...icon} />,
+        icon: <CubeIcon {...icon} />,
         name: "KategoriyaOne",
         path: "/kategoriaya",
         element: <Kategoriya />,
       },
       {
-        icon: <BellIcon {...icon} />,
+        icon: <CubeIcon {...icon} />,
         name: "KategoriyaTwo",
         path: "/kategoriyatwo",
         element: <KategoriyaTwo />,
       },
       {
-        icon: <TableCellsIcon {...icon} />,
+        icon: <CubeIcon {...icon} />,
         name: "KategoriyaThree",
         path: "/kategoriyathree",
         element: <KategoriyaThree />,
@@ -66,13 +68,13 @@ export const routes = [
         element: <PrivacyPolice />,
       },
       {
-        icon: <BellIcon {...icon} />,
+        icon: <InformationCircleIcon {...icon} />,
         name: "History",
         path: "/history",
         element: <History />,
       },
       {
-        icon: <BellIcon {...icon} />,
+        icon: <NewspaperIcon {...icon} />,
         name: "News",
         path: "/news",
         element: <News />,
