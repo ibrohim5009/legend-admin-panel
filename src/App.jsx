@@ -1,15 +1,36 @@
-import { Routes, Route, Navigate } from "react-router-dom";
-import { Dashboard, Auth } from "@/layouts";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import React, { Suspense, useEffect } from 'react';
+import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import Loading from './pages/loading/Loading';
+const Dashboard = React.lazy(() => import('@/layouts/Dashboard'));
+const Auth = React.lazy(() => import('@/layouts/Auth'));
+
+
+
+const loadingMessage = (
+  <div>
+    <Loading/>
+  </div>
+);
 
 function App() {
+  const navigates = useNavigate();
+  useEffect(() => {
+    let token = sessionStorage.getItem('token');
+    console.log(token);
+    if (!token) {
+      navigates('auth/sign-in');
+    }
+  }, [navigates]);
   return (
-    <Routes>
-      <Route path="/dashboard/*" element={<Dashboard />} />
-      <Route path="/auth/*" element={<Auth />} />
-      <Route path="*" element={<Navigate to="/dashboard/home" replace />} />
-    </Routes>
+    <Suspense fallback={loadingMessage}>
+      <Routes>
+        <Route path="/dashboard/*" element={<Dashboard />} />
+        <Route path="/auth/*" element={<Auth />} />
+        <Route path="*" element={<Navigate to="/dashboard/home" replace />} />
+      </Routes>
+   </Suspense>
   );
 }
 

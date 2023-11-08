@@ -212,7 +212,7 @@ export function Tables() {
   return (
     <div className="mt-12 mb-8 flex flex-col gap-12">
       <Card>
-        <div className="mr-auto md:mr-4 md:w-56">
+        <div className="mr-auto md:mr-4 md:w-56 ml-5 mt-5">
           <form onSubmit={handleSearch}>
             <Input
               value={input}
@@ -220,9 +220,15 @@ export function Tables() {
               name="search"
               label="Type here"
             />
-            <button type="submit">submit</button>
           </form>
         </div>
+        <div className="grid grid-cols-4 justify-around">
+          {Array.isArray(products) ? (
+            input?.length !== 0 &&
+            products.map((item) =>
+              isEditing && editingId === item.id ? (
+                // Edit form
+                <div key={item.id} className="m-4 w-80 rounded-lg border border-gray-300 p-4">
         <div className="m-20 grid grid-cols-3 items-center justify-around">
           {Array.isArray(datas) ? (
             input?.length !== 0 &&
@@ -238,6 +244,7 @@ export function Tables() {
                       <input
                         type="text"
                         placeholder="Nomi"
+                        className="w-full rounded-lg border border-black p-2"
                         className="ml-4 h-10 w-5/6 rounded-lg border border-black p-2"
                         {...register("name")}
                         defaultValue={editFormData.name}
@@ -250,6 +257,7 @@ export function Tables() {
                       <input
                         type="number"
                         placeholder="Narxi"
+                        className="w-full mt-2 rounded-lg border border-black p-2"
                         className="ml-4 h-10 w-5/6 rounded-lg border border-black p-2"
                         {...register("price")}
                         defaultValue={editFormData.price}
@@ -262,6 +270,7 @@ export function Tables() {
                       <input
                         type="text"
                         placeholder="Tavsifi"
+                        className="w-full mt-2 rounded-lg border border-black p-2"
                         className="ml-4 h-10 w-5/6 rounded-lg border border-black p-2"
                         {...register("description")}
                         defaultValue={editFormData.description}
@@ -274,6 +283,7 @@ export function Tables() {
                       <input
                         type="file"
                         placeholder="image_upload"
+                        className="w-full mt-2 rounded-lg border border-black p-2"
                         className="ml-4 h-10 w-5/6 rounded-lg border border-black p-2"
                         {...register("image")}
                       />
@@ -286,6 +296,7 @@ export function Tables() {
                         name="category"
                         id="category"
                         {...register("category")}
+                        className="w-full mt-2 rounded-lg border border-black p-2"
                         className="ml-4 w-72 rounded-lg border border-black p-2"
                         defaultValue={editFormData.category}
                       >
@@ -307,6 +318,7 @@ export function Tables() {
                       <input
                         type="text"
                         placeholder="Nimadur"
+                        className="w-full mt-2 rounded-lg border border-black p-2"
                         className="ml-4 h-10 w-5/6 rounded-lg border border-black p-2"
                         {...register("slug")}
                         defaultValue={editFormData.slug}
@@ -319,6 +331,7 @@ export function Tables() {
                       <input
                         type="number"
                         placeholder="Yetkazib berish narxi"
+                        className="w-full mt-2 rounded-lg border border-black p-2"
                         className="ml-4 h-10 w-5/6 rounded-lg border border-black p-2"
                         {...register("shipping_price")}
                         defaultValue={editFormData.shipping_price}
@@ -330,6 +343,7 @@ export function Tables() {
                       )}
                       <button
                         type="submit"
+                        className="mt-2 w-full p-2 border border-black"
                         className="ml-4 mt-4 h-10 w-80 border border-black"
                       >
                         <span className="text-black">
@@ -340,6 +354,10 @@ export function Tables() {
                   )}
                 </div>
               ) : (
+                // Displaying item details
+                <div
+                  key={item.id}
+                  className="team-member m-4 w-80 rounded-lg border border-gray-300 "
                 <div
                   key={item.id}
                   className="team-member m-4 w-80 rounded-lg border border-gray-300"
@@ -350,6 +368,33 @@ export function Tables() {
                     className="h-48 w-full rounded-t-lg object-cover"
                   />
                   <div className="flex flex-col p-4">
+                    <div className="flex justify-between">
+                      <p className="text-xl font-semibold">{item.name}</p>
+                      <p className="text-lg">{item.price}</p>
+                    </div>
+                    <div className="flex justify-between mt-3">
+                      <p className="text-lg">{item.description}</p>
+                      <p className="text-lg">{item.slug}</p>
+                    </div>
+                    <div className="flex justify-between mt-3">
+                      <p className="text-lg">{item.shipping_price}</p>
+                      <p className="text-lg">{item.category}</p>
+                    </div>
+                    </div>
+                    <div className="m-4 flex justify-center">
+                      <button
+                        onClick={() => deleteNews(item.id)}
+                        className="mr-2 h-10 w-40 border border-red-500 flex justify-center rounded-lg items-center"
+                      >
+                        <BsFillTrashFill className="text-red-500 text-xl" />
+                      </button>
+                      <button
+                        onClick={() => editNews(item)}
+                        className="h-10 w-40 border border-blue-500 flex justify-center rounded-lg items-center"
+                      >
+                        <FiEdit2 className="text-blue-500 text-xl" />
+                      </button>
+                    </div>
                     <p className="text-xl font-semibold">{item.name}</p>
                     <p className="text-lg">{item.price}</p>
                     <p className="text-lg">{item.description}</p>
@@ -375,13 +420,16 @@ export function Tables() {
               )
             )
           ) : (
+            <p>Ma'lumotlar mavjud emas</p>
+          )}
+      </div>
             <p className="text-lg">Ma'lumotlar mavjud emas</p>
           )}
         </div>
         <div>
           <Popup
             trigger={
-              <button className="rounded-lg bg-blue-500 p-2 text-white">
+              <button className="rounded-lg bg-blue-500 p-2 text-white ml-5 mt-10">
                 {" "}
                 Mahsulot qo'shish{" "}
               </button>
@@ -403,7 +451,7 @@ export function Tables() {
                 <input
                   type="text"
                   placeholder="Nomi"
-                  className="ml-4 h-10 w-5/6 rounded-lg border border-black p-2"
+                  className="w-full  rounded-lg border border-black p-2"
                   {...register("name")}
                 />
                 {errors.name && (
@@ -414,7 +462,7 @@ export function Tables() {
                 <input
                   type="number"
                   placeholder="Narxi"
-                  className="ml-4 h-10 w-5/6 rounded-lg border border-black p-2"
+                  className="w-full  rounded-lg border border-black p-2"
                   {...register("price")}
                 />
                 {errors.price && (
@@ -425,7 +473,7 @@ export function Tables() {
                 <input
                   type="text"
                   placeholder="Tavsifi"
-                  className="ml-4 h-10 w-5/6 rounded-lg border border-black p-2"
+                  className="w-full  rounded-lg border border-black p-2"
                   {...register("description")}
                 />
                 {errors.description && (
@@ -465,7 +513,7 @@ export function Tables() {
                 <input
                   type="text"
                   placeholder="Nimadur"
-                  className="ml-4 h-10 w-5/6 rounded-lg border border-black p-2"
+                  className="w-full  rounded-lg border border-black p-2"
                   {...register("slug")}
                 />
                 {errors.slug && (
@@ -476,7 +524,7 @@ export function Tables() {
                 <input
                   type="number"
                   placeholder="Yetkazib berish narxi"
-                  className="ml-4 h-10 w-5/6 rounded-lg border border-black p-2"
+                  className="w-full  rounded-lg border border-black p-2"
                   {...register("shipping_price")}
                 />
                 {errors.shipping_price && (
@@ -496,6 +544,7 @@ export function Tables() {
           </Popup>
         </div>
 
+        <div className=" mt-5 grid grid-cols-4">
         <div className="m-20 grid grid-cols-3 items-center justify-center justify-around">
           {Array.isArray(datas) ? (
             datas.map((item) =>
@@ -503,14 +552,14 @@ export function Tables() {
                 // Edit form
                 <div
                   key={item.id}
-                  className="team-member m-4 w-80 rounded-lg border border-gray-300 p-4"
+                  className="m-4 w-80 rounded-lg border border-gray-300 p-4"
                 >
                   {isEditing && (
                     <form className="edit-form" onSubmit={handleSubmit(onEdit)}>
                       <input
                         type="text"
                         placeholder="Nomi"
-                        className="ml-4 h-10 w-5/6 rounded-lg border border-black p-2"
+                        className="w-full rounded-lg border border-black p-2"
                         {...register("name")}
                         defaultValue={editFormData.name}
                       />
@@ -522,7 +571,7 @@ export function Tables() {
                       <input
                         type="number"
                         placeholder="Narxi"
-                        className="ml-4 h-10 w-5/6 rounded-lg border border-black p-2"
+                        className="w-full mt-2 rounded-lg border border-black p-2"
                         {...register("price")}
                         defaultValue={editFormData.price}
                       />
@@ -534,7 +583,7 @@ export function Tables() {
                       <input
                         type="text"
                         placeholder="Tavsifi"
-                        className="ml-4 h-10 w-5/6 rounded-lg border border-black p-2"
+                        className="w-full mt-2 rounded-lg border border-black p-2"
                         {...register("description")}
                         defaultValue={editFormData.description}
                       />
@@ -546,7 +595,7 @@ export function Tables() {
                       <input
                         type="file"
                         placeholder="image_upload"
-                        className="ml-4 h-10 w-5/6 rounded-lg border border-black p-2"
+                        className="w-full mt-2 rounded-lg border border-black p-2"
                         {...register("image")}
                       />
                       {errors.image && (
@@ -558,7 +607,7 @@ export function Tables() {
                         name="category"
                         id="category"
                         {...register("category")}
-                        className="ml-4 w-72 rounded-lg border border-black p-2"
+                        className="w-full mt-2 rounded-lg border border-black p-2"
                         defaultValue={editFormData.category}
                       >
                         {errors.category && (
@@ -579,7 +628,7 @@ export function Tables() {
                       <input
                         type="text"
                         placeholder="Nimadur"
-                        className="ml-4 h-10 w-5/6 rounded-lg border border-black p-2"
+                        className="w-full mt-2 rounded-lg border border-black p-2"
                         {...register("slug")}
                         defaultValue={editFormData.slug}
                       />
@@ -591,7 +640,7 @@ export function Tables() {
                       <input
                         type="number"
                         placeholder="Yetkazib berish narxi"
-                        className="ml-4 h-10 w-5/6 rounded-lg border border-black p-2"
+                        className="w-full mt-2 rounded-lg border border-black p-2"
                         {...register("shipping_price")}
                         defaultValue={editFormData.shipping_price}
                       />
@@ -602,7 +651,7 @@ export function Tables() {
                       )}
                       <button
                         type="submit"
-                        className="ml-4 mt-4 h-10 w-80 border border-black"
+                        className="mt-2 w-full p-2 border border-black"
                       >
                         <span className="text-black">
                           Ma'lumotlarni saqlash
@@ -622,25 +671,31 @@ export function Tables() {
                     className="h-48 w-full rounded-t-lg object-cover"
                   />
                   <div className="flex flex-col p-4">
-                    <p className="text-xl font-semibold">{item.name}</p>
-                    <p className="text-lg">{item.price}</p>
-                    <p className="text-lg">{item.description}</p>
-                    <p className="text-lg">{item.slug}</p>
-                    <p className="text-lg">{item.shipping_price}</p>
-                    <p className="text-lg">{item.category}</p>
+                      <div className="flex justify-between">
+                        <p className="text-xl font-semibold">{item.name}</p>
+                        <p className="text-lg">{item.price}</p>
+                    </div>
+                      <div className="flex justify-between mt-3">
+                        <p className="text-lg">{item.description}</p>
+                        <p className="text-lg">{item.slug}</p>
+                    </div>
+                      <div className="flex justify-between mt-3">
+                        <p className="text-lg">{item.shipping_price}</p>
+                        <p className="text-lg">{item.category}</p>
+                   </div>
                   </div>
                   <div className="m-4 flex justify-center">
                     <button
                       onClick={() => deleteNews(item.id)}
-                      className="mr-2 h-10 w-40 border border-red-500"
+                        className="mr-2 h-10 w-40 border border-red-500 flex justify-center rounded-lg items-center"
                     >
-                      <BsFillTrashFill className="text-red-500" />
+                      <BsFillTrashFill className="text-red-500 text-xl" />
                     </button>
                     <button
                       onClick={() => editNews(item)}
-                      className="h-10 w-40 border border-blue-500"
+                        className="h-10 w-40 border border-blue-500 flex justify-center rounded-lg items-center"
                     >
-                      <FiEdit2 className="text-blue-500" />
+                      <FiEdit2 className="text-blue-500 text-xl" />
                     </button>
                   </div>
                 </div>
