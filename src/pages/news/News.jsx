@@ -130,30 +130,30 @@ const News = () => {
             className=" grid gap-2"
             onSubmit={handleSubmit(onSubmit)}
           >
-            <div className="flex items-center col-span-6">
+            <div className="flex items-center gap-5 col-span-6">
               <input
                 type="file"
-                className=" flex items-center justify-center text-center p-1 w-52 h-10 border border-black rounded-md px-4"
+                className=" w-56 h-10 px-2 py-[3px] border-2 border-[#dee2e6] rounded-lg focus:outline-none focus:border-blue-400 placeholder-gray-600 ml-5"
                 {...register("image")}
               />
               <input
                 type="text"
                 placeholder="Text"
-                className="order_input col-span-2 w-52 h-10 border border-black rounded-md px-4"
+                className="w-52 h-10 px-4 py-2 border-2 border-[#dee2e6] rounded-lg focus:outline-none focus:border-blue-400 placeholder-gray-600 ml-5"
                 {...register("text")}
                 defaultValue={""}
               />
               <input
                 type="text"
                 placeholder="Title"
-                className="product_slug_input col-span-2 w-52 h-10 border border-black rounded-md px-4"
+                className="w-52 h-10 px-4 py-2 border-2 border-[#dee2e6] rounded-lg focus:outline-none focus:border-blue-400 placeholder-gray-600 ml-5"
                 {...register("title")}
                 defaultValue={""}
               />
               <input
                 type="date"
                 placeholder="Time"
-                className="time_input col-span-1 w-52 h-10 border border-black rounded-md px-4"
+                className="w-52 h-10 px-4 py-2 border-2 border-[#dee2e6] rounded-lg focus:outline-none focus:border-blue-400 text-gray-600 ml-5"
                 {...register("time")}
                 defaultValue={"time"}
               />
@@ -163,15 +163,15 @@ const News = () => {
             </div>
           </form>
         </div>
-        <div className="news-container max-h-96 overflow-y-auto">
+        <div className="max-h-96 overflow-y-auto ml-5">
           {Array.isArray(data) ? (
             data.map((item) => (
               <div
                 key={item.id}
-                className="news-item w-96 border border-black rounded-md p-2 ml-4 mb-4 flex"
+                className=" mt-5 w-[60rem] border-2 border-[#dee2e6] flex items-center justify-between p-2"
               >
                 <img
-                  className="images_around w-20 h-36 object-cover"
+                  className="images_around w-20 h-32 object-cover"
                   src={`https://api.abdullajonov.uz/legend-backend-api/public/storage/images/${item.image}`}
                   alt=""
                 />
@@ -181,16 +181,16 @@ const News = () => {
                 </div>
                 <div className="around_button_with flex items-center gap-5">
                   <button
-                    className="deleted_news_button w-32 h-10 border border-red-500 rounded-md bg-red-500 text-white text-lg"
+                    className="w-44 h-10 px-4 py-2 border-2 border-red-600 text-red-600 rounded-lg flex items-center justify-evenly"
                     onClick={() => deleteNews(item.id)}
                   >
-                    <BsFillTrashFill />
+                    <BsFillTrashFill /> O'chirish
                   </button>
                   <button
-                    className="edit_news_button w-32 h-10 border border-blue-500 rounded-md bg-blue-500 text-white text-lg"
+                    className="w-44 h-10 px-4 py-2 border-2 border-blue-400 text-blue-600 rounded-lg flex items-center justify-evenly"
                     onClick={() => editNews(item)}
                   >
-                    <FiEdit2 />
+                    <FiEdit2 /> Tahrirlash
                   </button>
                 </div>
               </div>
