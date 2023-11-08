@@ -15,8 +15,8 @@ const News = () => {
   const token = sessionStorage.getItem('token');
   const [data, setData] = useState([]);
   const [editingId, setEditingId] = useState(null);
+  const [editFormData, setEditFormData] = useState();
 
-  const [editFormData, setEditFormData] = useState({});
   const onSubmit = async (data) => {
     const formData = new FormData();
     formData.append("image", data.image[0]);
@@ -62,12 +62,14 @@ const News = () => {
       console.error(error);
     }
   };
+
   const onEdit = async (datas) => {
     const formDatas = new FormData();
     formDatas.append("image", datas.image[0]);
     formDatas.append("text", datas.text);
     formDatas.append("title", datas.title);
     formDatas.append("time", datas.time);
+
     const options = {
       method: 'POST',
       url: `https://api.abdullajonov.uz/legend-backend-api/api/admin/${token}/news/${editingId}/update`,
@@ -83,6 +85,8 @@ const News = () => {
       toast.success('Yanglik taxrirlandi', {
         position: toast.POSITION.TOP_RIGHT
       });
+      setEditingId(null);
+      setEditFormData({});
     } catch (error) {
       console.error(error);
       toast.error('Yangilik taxrirlanmadi', {
@@ -90,6 +94,7 @@ const News = () => {
       });
     }
   };
+
 
   const deleteNews = async (idToDelete) => {
     try {
@@ -107,7 +112,7 @@ const News = () => {
       });
     } catch (error) {
       console.error(error);
-      toast.error('Yanglik o\'chirilmadi', {
+      toast.error('Yangilik o\'chirilmadi', {
         position: toast.POSITION.TOP_RIGHT
       });
     }
@@ -118,6 +123,11 @@ const News = () => {
     setEditingId(item.id);
   };
 
+  const onCancelEdit = () => {
+    setEditFormData({});
+    setEditingId(null);
+  };
+
   useEffect(() => {
     fetchData();
   }, []);
@@ -125,15 +135,15 @@ const News = () => {
   return (
     <div className="mt-10 mx-auto max-w-screen-lg flex flex-col gap-8 min-h-[840px] min-w-full bg-white shadow-2xl p-4">
       <div className="mt-16 mb-6">
-        <div className="grid grid-cols-6 gap-4">
+        <div className="flex">
           <form
-            className=" grid gap-2"
+            className="flex"
             onSubmit={handleSubmit(onSubmit)}
           >
-            <div className="flex items-center gap-5 col-span-6">
+            <div className="flex items-center gap-2">
               <input
                 type="file"
-                className=" w-56 h-10 px-2 py-[3px] border-2 border-[#dee2e6] rounded-lg focus:outline-none focus:border-blue-400 placeholder-gray-600 ml-5"
+                className="w-52 h-10 px-2 py-[3px] border-2 border-[#dee2e6] bg-white rounded-lg focus:outline-none focus:border-blue-400 ml-2"
                 {...register("image")}
               />
               <input
@@ -157,7 +167,7 @@ const News = () => {
                 {...register("time")}
                 defaultValue={"time"}
               />
-              <button className="news_btn col-span-6 w-52 h-10 border border-black bg-blue-500 text-white text-lg">
+              <button className="col-span-6 w-52 h-10 border border-blue-400 bg-blue-500 text-white text-lg rounded-lg">
                 <span>Ma'lumotlarni yuborish</span>
               </button>
             </div>
@@ -175,28 +185,67 @@ const News = () => {
                   src={`https://api.abdullajonov.uz/legend-backend-api/public/storage/images/${item.image}`}
                   alt=""
                 />
+                {editingId !== null && editingId === item.id && (
+                  <form
+                    className="around_text_around flex items-center gap-5"
+                    onSubmit={handleSubmit(onEdit)}
+                  >
+                    <input
+                      type="file"
+                      {...register("image")}
+                      defaultValue={editFormData.image}
+                    />
+                    <input
+                      type="text"
+                      {...register("text")}
+                      defaultValue={editFormData.text}
+                    />
+                    <input
+                      type="text"
+                      {...register("title")}
+                      defaultValue={editFormData.title}
+                    />
+                    <input
+                      type="date"
+                      {...register("time")}
+                      defaultValue={editFormData.time}
+                    />
+                    <button className="w-44 h-10 px-4 py-2 border-2 border-blue-400 text-blue-600 rounded-lg flex items-center justify-evenly">
+                      <FiEdit2 /> Saqlash
+                    </button>
+                  </form>
+                )}
                 <div className="around_text_around flex items-center gap-5">
                   <p>{item.text}</p>
                   <p>{item.title}</p>
                 </div>
                 <div className="around_button_with flex items-center gap-5">
+                  {editingId === item.id ? (
+                    <button
+                      className="w-44 h-10 px-4 py-2 border-2 border-red-600 text-red-600 rounded-lg flex items-center justify-evenly"
+                      onClick={onCancelEdit}
+                    >
+                      Bekor qilish
+                    </button>
+                  ) : (
+                    <button
+                      className="w-44 h-10 px-4 py-2 border-2 border-blue-400 text-blue-600 rounded-lg flex items-center justify-evenly"
+                      onClick={() => editNews(item)}
+                    >
+                      <FiEdit2 /> Tahrirlash
+                    </button>
+                  )}
                   <button
                     className="w-44 h-10 px-4 py-2 border-2 border-red-600 text-red-600 rounded-lg flex items-center justify-evenly"
                     onClick={() => deleteNews(item.id)}
                   >
                     <BsFillTrashFill /> O'chirish
                   </button>
-                  <button
-                    className="w-44 h-10 px-4 py-2 border-2 border-blue-400 text-blue-600 rounded-lg flex items-center justify-evenly"
-                    onClick={() => editNews(item)}
-                  >
-                    <FiEdit2 /> Tahrirlash
-                  </button>
                 </div>
               </div>
             ))
           ) : (
-            <p className="w-96">Data is not available</p>
+            <p className="w-96">Ma'lumotlar mavjud emas</p>
           )}
         </div>
       </div>
