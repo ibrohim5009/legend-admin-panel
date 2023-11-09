@@ -39,12 +39,12 @@ export function SignIn() {
         sessionStorage.setItem('token', data.data.remember_token);
       } else {
       }
-      toast.error('Ro\'yhatdan o\'tmadingiz', {
-        position: toast.POSITION.TOP_RIGHT
-      });
     } catch (error) {
 
     }
+    toast.error('Ro\'yhatdan o\'tmadingiz', {
+      position: toast.POSITION.TOP_RIGHT
+    });
   };
   if (sessionStorage.getItem('token')) {
     return <Navigate to="/" />;
@@ -68,7 +68,7 @@ export function SignIn() {
             </Typography>
           </CardHeader>
           <CardBody className="flex flex-col gap-4">
-            <Input type="email" label="Email" size="lg"
+            <Input type="text" label="Name" size="lg"
               value={name}
               onChange={(e) => setName(e.target.value)}
               required
@@ -78,7 +78,7 @@ export function SignIn() {
               onChange={(e) => setPassword(e.target.value)}
               required />
             <div className="-ml-2.5">
-              <Checkbox label="Remember Me" />
+              <h2 className=' ml-2 font-sans text-xl'></h2>
             </div>
           </CardBody>
           <CardFooter className="pt-0">

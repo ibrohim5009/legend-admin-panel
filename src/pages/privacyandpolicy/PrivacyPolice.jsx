@@ -114,69 +114,72 @@ const PrivacyPolice = () => {
   }, []);
 
   return (
-    <div className="mt-10 mx-auto flex max-w-screen-lg flex-col gap-8 min-h-[840px] min-w-full bg-white shadow-2xl">
+    <div className="mt-[8px] rounded-lg md:mt-10 mx-auto flex max-w-screen-lg flex-col gap-8 min-h-[840px] min-w-full bg-white shadow-2xl">
       <div className="mx-3 mt-16 mb-6 lg:mx-4">
         <div className="">
-          <div className="grid gap-4">
+          <div className="flex flex-wrap gap-4 md:flex">
             <form className="nimadur" onSubmit={handleSubmit((formData, e) => {
               e.preventDefault();
               onSubmit(formData);
             })}>
-              <div className="flex items-center">
+              <div className="items-center md:flex">
                 <input
                   type="text"
                   placeholder="Privacy and policy text"
-                  className="w-52 h-10 px-4 py-2 border-2 border-[#dee2e6] rounded-lg focus:outline-none focus:border-blue-400 placeholder-gray-600 ml-5"
+                  className="w-[320px] ml-1 md:w-52 h-10 px-4 py-2 border-2 border-[#dee2e6] rounded-lg focus:outline-none focus:border-blue-400 placeholder-gray-600 ml-5"
                   {...register("text")}
                   value={inputValue} // Set the value of the input field
                   onChange={(e) => setInputValue(e.target.value)} // Update input value
                 />
-                <button type="submit" className="w-52 h-10 px-4 py-[5px] flex items-center justify-center border-2 border-[#dee2e6] text-black rounded-lg ml-5 hover:bg-blue-400 hover:border-blue-400 hover:text-white">Ma'lumot qo'shish</button>
+                <button type="submit" className="w-[320px] ml-1 mt-3 md:w-52 h-10 px-4 py-[5px] flex border-2 border-[#dee2e6] text-gray-600 rounded-lg ml-5 hover:bg-blue-400 hover:border-blue-400 hover:text-white">Ma'lumot qo'shish</button>
              </div>
             </form>
           </div>
         </div>
         <div>
-          <div className="w-[50rem] grid gap-4 ml-5 max-h-[670px] overflow-y-auto mt-5">
+          <div className=" ml-1 md:w-[50rem] grid gap-4 ml-5 max-h-[670px] overflow-y-auto mt-5">
             {data.length > 0 &&
               data.map((item) => (
-                <div key={item.id} className="">
-                  {editingId === item.id ? (
+                <div key={item.id} className="w-[320px] md:flex w-full items-center justify-evenly border-2 border-[#dee2e6] p-2">
+                  <div className="">
+                    <p className=" text-gray-700 font-bold">{item.text}</p>
+                    <div className="mt-2 flex gap-11 md:flex gap-11">
+                      <button
+                        onClick={() => setEditingId(item.id)}
+                        className="w-44 h-10 px-4 py-2 border-2 border-blue-400 text-blue-600 rounded-lg flex items-center justify-evenly"
+                      >
+                        <FiEdit2 />
+                        Tahrirlash
+                      </button>
+                      <button
+                        onClick={() => deletePrivacyPolicy(item.id)}
+                        className="w-44 h-10 px-4 py-2 border-2 border-red-600 text-red-600 rounded-lg flex items-center justify-evenly"
+                      >
+                        <BsFillTrashFill />
+                        Delete
+                      </button>
+                    </div>
+                  </div>
+                  {editingId !== null && editingId === item.id ? (
                     <form
                       onSubmit={handleSubmit((formData, e) => {
                         e.preventDefault();
                         onEdit(formData);
                       })}
-                      className="flex items-center justify-around w-full border-2 border-[#dee2e6]  p-2"
+                      className=""
                     >
-                      <input
-                        type="text"
-                        defaultValue={item.text}
-                        {...register("text")}
-                        className="w-52 h-10 px-4 py-2 border-2 border-[#dee2e6] rounded-lg focus:outline-none focus:border-blue-400 placeholder-gray-600 ml-5"
-                      />
-                      <button type="submit" className="w-52 h-10 px-4 py-2 flex text-center border-2 border-[#dee2e6] text-black rounded-lg ml-5 hover:bg-blue-400 hover:border-blue-400 hover:text-white"><GrDocumentUpdate /> Update</button>
+                      <div className="mt-2 flex gap-5 md:flex gap-11">
+                        <input
+                          type="text"
+                          defaultValue={item.text}
+                          {...register("text")}
+                          className="w-32 md:flex h-10 w-52 items-center justify-evenly rounded-lg border-2 border-[#dee2e6] px-4 py-2 text-gray-600 placeholder-gray-600 focus:outline-none"
+                        />
+                        <button type="submit" className="w-32 flex items-center justify-evenly md:flex h-10 w-44 rounded-lg border-2 border-gray-400 px-4 py-2 text-black"><GrDocumentUpdate /> Update</button>
+                      </div>
                     </form>
                   ) : (
-                    <div className="w-full border-2 border-[#dee2e6] flex items-center justify-between p-2">
-                        <p className=" text-gray-700 font-bold">{item.text}</p>
-                        <div className="flex gap-11">
-                        <button
-                          onClick={() => setEditingId(item.id)}
-                            className="w-44 h-10 px-4 py-2 border-2 border-blue-400 text-blue-600 rounded-lg flex items-center justify-evenly"
-                        >
-                          <FiEdit2 />
-                          Tahrirlash
-                        </button>
-                        <button
-                          onClick={() => deletePrivacyPolicy(item.id)}
-                            className="w-44 h-10 px-4 py-2 border-2 border-red text-red-600 rounded-lg flex items-center justify-evenly"
-                        >
-                          <BsFillTrashFill />
-                          Delete
-                        </button>
-                      </div>
-                    </div>
+                      <p></p>
                   )}
                 </div>
               ))}

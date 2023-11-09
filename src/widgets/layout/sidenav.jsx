@@ -40,14 +40,6 @@ export function Sidenav({ brandName, routes }) {
               {brandName}
             </Typography>
           </Link>
-          <IconButton
-            variant="text"
-            color="blue-gray"
-            className="grid xl:hidden"
-            onClick={() => setOpenSidenav(dispatch, !openSidenav)}
-          >
-            <Bars3Icon strokeWidth={3} className="h-6 w-6 text-blue-gray-500" />
-          </IconButton>
        </div>
       </div>
       <div className="m-2">
@@ -79,6 +71,7 @@ export function Sidenav({ brandName, routes }) {
                       }
                       className="flex items-center gap-4 px-4 capitalize"
                       fullWidth
+                      onClick={() => setOpenSidenav(dispatch, !openSidenav)}
                     >
                       {icon}
                       <Typography

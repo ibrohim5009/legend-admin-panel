@@ -110,10 +110,9 @@ function Kategoriya() {
   useEffect(() => {
     fetchData();
   }, []);
-
   return (
-    <div className="container mx-auto mt-10 flex min-h-[840px] min-w-full max-w-screen-lg flex-col gap-8 bg-white shadow-2xl">
-      <div className="mx-3 mt-16 mb-6 lg:mx-4">
+    <div className="mt-[8px] rounded-lg md:container mx-auto mt-10 flex min-h-[840px] min-w-full max-w-screen-lg flex-col gap-8 bg-white shadow-2xl">
+      <div className=" mx-3 mt-16 mb-6 lg:mx-4">
         <div className="">
           <div className="flex flex-wrap gap-4 md:flex">
             <form className="md:block" onSubmit={handleSubmit(onSubmit)}>
@@ -121,18 +120,18 @@ function Kategoriya() {
                 <input
                   type="text"
                   placeholder="Katogoriya nomi"
-                  className="ml-5 h-10 rounded-lg border-2 w-[300px]  border-[#dee2e6] px-4 py-2 placeholder-gray-600 focus:border-blue-400 focus:outline-none md:w-52"
+                  className=" w-[320px] md:ml-5 h-10 rounded-lg border-2 w-[300px]  border-[#dee2e6] px-4 py-2 placeholder-gray-600 focus:border-blue-400 focus:outline-none"
                   {...register("name")}
                 />
                 <input
                   type="text"
                   placeholder="Slug nomi"
-                  className=" ml-5 h-10 w-40 rounded-lg border-2 border-[#dee2e6] px-4 py-2 placeholder-gray-600 focus:border-blue-400 focus:outline-none md:w-52"
+                  className=" w-[320px] mt-3 md:ml-5 h-10 w-40 rounded-lg border-2 border-[#dee2e6] px-4 py-2 placeholder-gray-600 focus:border-blue-400 focus:outline-none"
                   {...register("slug")}
                 />
                 <button
                   type="submit"
-                  className=" ml-5 flex h-10 w-52 rounded-lg border-2 border-[#dee2e6] px-4 py-2 text-center text-black hover:border-blue-400 hover:bg-blue-400 hover:text-white"
+                  className=" w-[320px] mt-3 md:ml-5 flex h-10 w-52 rounded-lg border-2 border-[#dee2e6] px-4 py-2 text-center text-gray-600 hover:border-blue-400 hover:bg-blue-400 hover:text-white"
                 >
                   <span>Ma'lumotlarni qo'shish</span>
                 </button>
@@ -141,13 +140,13 @@ function Kategoriya() {
             <div className="md:ml-5 grid max-h-[670px] w-[50rem] gap-4 overflow-y-auto">
               {data.map((category) => (
                 <div
-                  className="flex w-full items-center justify-evenly border-2 border-[#dee2e6] p-2"
+                  className="w-[320px] md:flex w-full items-center justify-evenly border-2 border-[#dee2e6] p-2"
                   key={category.id}
                 >
-                  <span className="w-full font-bold text-gray-700">
+                  <span className=" md:w-full font-bold text-gray-700">
                     {category.name}
                   </span>
-                  <div className="flex gap-11">
+                  <div className="mt-2 flex gap-11 md:flex gap-11">
                     <button
                       className="border-red flex h-10 w-44 items-center justify-evenly rounded-lg border-2 px-4 py-2 text-red-600"
                       onClick={() => deleteParentCategory(category.id)}
@@ -167,19 +166,21 @@ function Kategoriya() {
                       className="kategoriya_dates"
                       onSubmit={handleSubmit(onEdit)}
                     >
-                      <input
-                        defaultValue={category.name}
-                        type="text"
-                        placeholder="Updated Text"
-                        className="ml-5 h-10 w-52 rounded-lg border-2 border-blue-700 bg-blue-700 px-4 py-2 text-white placeholder-gray-100 focus:outline-none"
-                        {...register("name")}
-                      />
-                      <button
-                        type="submit"
-                        className="ml-5 h-10 w-52 rounded-lg bg-blue-800 px-4 py-2 text-center text-white"
-                      >
-                        <GrDocumentUpdate /> Updated
-                      </button>
+                      <div className="mt-2 flex gap-11 md:flex gap-11">
+                        <input
+                          defaultValue={category.name}
+                          type="text"
+                          placeholder="Updated Text"
+                          className=" w-32 md:flex h-10 w-52 items-center justify-evenly rounded-lg border-2 border-[#dee2e6] px-4 py-2 text-gray-600 placeholder-gray-600 focus:outline-none"
+                          {...register("name")}
+                        />
+                        <button
+                          type="submit"
+                          className=" w-32 flex items-center justify-evenly md:flex h-10 w-44 rounded-lg border-2 border-gray-400 px-4 py-2 text-black"
+                        >
+                          <GrDocumentUpdate/> Updated
+                        </button>
+                      </div>
                     </form>
                   ) : (
                     <p></p>
