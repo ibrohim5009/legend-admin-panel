@@ -6,6 +6,8 @@ import { BsFillTrashFill } from "react-icons/bs";
 import { FiEdit2 } from "react-icons/fi";
 import { toast } from "react-toastify";
 import Popup from "reactjs-popup";
+import { Carousel } from 'react-responsive-carousel';
+import 'react-responsive-carousel/lib/styles/carousel.min.css';
 
 const contentStyle = {
   maxWidth: "100%",
@@ -38,8 +40,12 @@ export function Tables() {
     formData.append("description", data.description);
     formData.append("category", data.category);
     formData.append("slug", data.slug);
+    formData.append("size", data.size);
+    formData.append("color", data.color);
     formData.append("shipping_price", data.shipping_price);
     formData.append("image", data.image[0]);
+    formData.append("image_2", data.image_2[0]);
+    formData.append("image_3", data.image_3[0]);
 
     const options = {
       method: "POST",
@@ -209,7 +215,7 @@ export function Tables() {
       return;
     }
   }
-  console.log(products, "prducts");
+  console.log(datas);
   const [input, setInput] = useState();
   return (
     <div className="mt-12 mb-8 flex flex-col gap-12">
@@ -229,7 +235,6 @@ export function Tables() {
             input?.length !== 0 &&
             products.map((item) =>
               isEditing && editingId === item.id ? (
-                // Edit form
                 <div
                   key={item.id}
                   className="md:m-4 w-80 rounded-lg border border-gray-300 p-4 "
@@ -400,11 +405,11 @@ export function Tables() {
           >
             {(close) => (
               <form
-                className="relative grid h-[500px] w-[700px] grid-rows-3 gap-4 bg-white p-5"
+                className="relative grid h-[600px] w-[530px] grid-rows-3 gap-4 bg-white p-5 rounded-lg"
                 onSubmit={handleSubmit(onSubmit)}
               >
                 <a
-                  className="close absolute right-10 top-2 text-4xl"
+                  className="close absolute right-5 top-[-5px] text-4xl"
                   onClick={close}
                 >
                   &times;
@@ -412,7 +417,7 @@ export function Tables() {
                 <input
                   type="text"
                   placeholder="Nomi"
-                  className="w-full  rounded-lg border border-black p-2"
+                  className=" w-[28rem] rounded-lg border border-black p-2"
                   {...register("name")}
                 />
                 {errors.name && (
@@ -423,7 +428,7 @@ export function Tables() {
                 <input
                   type="number"
                   placeholder="Narxi"
-                  className="w-full  rounded-lg border border-black p-2"
+                  className="w-[28rem] rounded-lg border border-black p-2"
                   {...register("price")}
                 />
                 {errors.price && (
@@ -434,7 +439,7 @@ export function Tables() {
                 <input
                   type="text"
                   placeholder="Tavsifi"
-                  className="w-full  rounded-lg border border-black p-2"
+                  className="w-[28rem] rounded-lg border border-black p-2"
                   {...register("description")}
                 />
                 {errors.description && (
@@ -442,56 +447,48 @@ export function Tables() {
                     This field is required.
                   </span>
                 )}
-                <div className="ml-4 flex gap-6">
+                <div className="ml-0 flex gap-7">
                   <input
                     type="file"
                     placeholder="image_upload"
-                    className="ml-0 h-10 w-48 rounded-lg border border-black p-2"
+                    className="ml-0 h-10 w-52 rounded-lg border border-black p-1"
                     {...register("image")}
                   />
-                  {errors.image && (
-                    <span className="ml-0 text-sm text-red-500">
-                      This field is required.
-                    </span>
-                  )}
                   <input
                     type="file"
                     placeholder="image_upload"
-                    className="ml-0 h-10 w-48 rounded-lg border border-black p-2"
+                    className="ml-0 h-10 w-52 rounded-lg border border-black p-1"
                     {...register("image_2")}
                   />
+                </div>
+                <div className="flex gap-7">
                   <input
                     type="file"
                     placeholder="image_upload"
-                    className="ml-4 h-10 w-48 rounded-lg border border-black p-2"
+                    className="h-10 w-52 rounded-lg border border-black p-1"
                     {...register("image_3")}
                   />
-                  {errors.image && (
-                    <span className="ml-4 text-sm text-red-500">
-                      This field is required.
-                    </span>
-                  )}
+                  <select
+                    name=""
+                    id=""
+                    {...register("category")}
+                    className="w-52 rounded-lg border border-black p-2"
+                  >
+                    {Array.isArray(data) ? (
+                      data.map((item) => (
+                        <option key={item.id} value={item.slug}>
+                          {item.name}
+                        </option>
+                      ))
+                    ) : (
+                      <option value="">Ma'lumotlar mavjud emas</option>
+                    )}
+                  </select>
                 </div>
-                <select
-                  name=""
-                  id=""
-                  {...register("category")}
-                  className="w-64 rounded-lg border border-black p-2"
-                >
-                  {Array.isArray(data) ? (
-                    data.map((item) => (
-                      <option key={item.id} value={item.slug}>
-                        {item.name}
-                      </option>
-                    ))
-                  ) : (
-                    <option value="">Ma'lumotlar mavjud emas</option>
-                  )}
-                </select>
                 <input
                   type="text"
                   placeholder="Size"
-                  className="w-full  rounded-lg border border-black p-2"
+                  className="rounded-lg w-[28rem] border border-black p-2"
                   {...register("size")}
                 />
                 {errors.slug && (
@@ -502,7 +499,7 @@ export function Tables() {
                 <input
                   type="text"
                   placeholder="Color"
-                  className="w-full  rounded-lg border border-black p-2"
+                  className=" w-[28rem]  rounded-lg border border-black p-2"
                   {...register("color")}
                 />
                 {errors.slug && (
@@ -513,7 +510,7 @@ export function Tables() {
                 <input
                   type="text"
                   placeholder="Nimadur"
-                  className="w-full  rounded-lg border border-black p-2"
+                  className=" w-[28rem]  rounded-lg border border-black p-2"
                   {...register("slug")}
                 />
                 {errors.slug && (
@@ -524,7 +521,7 @@ export function Tables() {
                 <input
                   type="number"
                   placeholder="Yetkazib berish narxi"
-                  className="w-full  rounded-lg border border-black p-2"
+                  className="w-[28rem]  rounded-lg border border-black p-2"
                   {...register("shipping_price")}
                 />
                 {errors.shipping_price && (
@@ -535,7 +532,7 @@ export function Tables() {
                 <button
                   type="submit"
                   onClick={onSubmit}
-                  className="ml-4 mt-4 h-12 w-72 border border-black"
+                  className="ml-0 mt-2 h-10 w-[12rem]  border border-black"
                 >
                   <span className="text-black">Ma'lumotlarni yuborish</span>
                 </button>
@@ -544,7 +541,7 @@ export function Tables() {
           </Popup>
         </div>
 
-        <div className=" flex-wrap md:mt-5 flex gap-5 items-center justify-around">
+        <div className=" flex-wrap md:mt-5 flex gap-10 items-center ">
           {Array.isArray(datas) ? (
             datas.map((item) =>
               isEditing && editingId === item.id ? (
@@ -597,6 +594,18 @@ export function Tables() {
                         className="mt-2 w-full rounded-lg border border-black p-2"
                         {...register("image")}
                       />
+                      <input
+                        type="file"
+                        placeholder="image_upload"
+                        className="mt-2 w-full rounded-lg border border-black p-2"
+                        {...register("image_2")}
+                      />
+                      <input
+                        type="file"
+                        placeholder="image_upload"
+                        className="mt-2 w-full rounded-lg border border-black p-2"
+                        {...register("image_3")}
+                      />
                       {errors.image && (
                         <span className="ml-4 text-sm text-red-500">
                           This field is required.
@@ -631,6 +640,20 @@ export function Tables() {
                         {...register("slug")}
                         defaultValue={editFormData.slug}
                       />
+                      <input
+                        type="text"
+                        placeholder="Color"
+                        className="mt-2 w-full rounded-lg border border-black p-2"
+                        {...register("color")}
+                        defaultValue={editFormData.color}
+                      />
+                      <input
+                        type="text"
+                        placeholder="Size"
+                        className="mt-2 w-full rounded-lg border border-black p-2"
+                        {...register("size")}
+                        defaultValue={editFormData.size}
+                      />
                       {errors.slug && (
                         <span className="ml-4 text-sm text-red-500">
                           This field is required.
@@ -664,11 +687,29 @@ export function Tables() {
                   key={item.id}
                   className="team-member m-4 w-80 rounded-lg border border-gray-300"
                 >
-                  <img
-                    src={`https://api.abdullajonov.uz/legend-backend-api/public/storage/images/${item.image}`}
-                    alt=""
-                    className="h-48 w-full rounded-t-lg object-cover"
-                  />
+                    <Carousel showThumbs={false}>
+                      <div>
+                        <img
+                          src={`https://api.abdullajonov.uz/legend-backend-api/public/storage/images/${item.image}`}
+                          alt=""
+                          className="h-48 w-full rounded-t-lg object-cover"
+                        />
+                      </div>
+                      <div>
+                        <img
+                          src={`https://api.abdullajonov.uz/legend-backend-api/public/storage/images/${item.image_2}`}
+                          alt=""
+                          className="h-48 w-full rounded-t-lg object-cover"
+                        />
+                      </div>
+                      <div>
+                        <img
+                          src={`https://api.abdullajonov.uz/legend-backend-api/public/storage/images/${item.image_3}`}
+                          alt=""
+                          className="h-48 w-full rounded-t-lg object-cover"
+                        />
+                      </div>
+                    </Carousel>
                   <div className="flex flex-col p-4">
                     <div className="flex justify-between">
                       <p className="text-xl font-semibold">{item.name}</p>

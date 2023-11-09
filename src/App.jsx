@@ -1,9 +1,10 @@
-import React, { Suspense, useEffect } from 'react';
+import React, { Suspense, useEffect, useState } from 'react';
 import { Navigate, Route, Routes, useNavigate } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css';
 import Loading from './pages/loading/Loading';
 const Dashboard = React.lazy(() => import('@/layouts/Dashboard'));
 const Auth = React.lazy(() => import('@/layouts/Auth'));
+import { ToastContainer } from 'react-toastify';
 
 
 
@@ -14,13 +15,17 @@ const loadingMessage = (
 );
 
 function App() {
-  const navigates = useNavigate();
+  const navigate = useNavigate();
+  const [token, setToken] = useState(sessionStorage.getItem('token'));
+
   useEffect(() => {
-    let token = sessionStorage.getItem('token');
-    if (!token) {
-      navigates('auth/sign-in');
+    const storedToken = sessionStorage.getItem('token');
+    if (!storedToken) {
+      navigate('/auth/sign-in');
+    } else {
+      setToken(storedToken);
     }
-  }, [navigates]);
+  }, [navigate]);
   return (
     <Suspense fallback={loadingMessage}>
       <Routes>
@@ -28,6 +33,7 @@ function App() {
         <Route path="/auth/*" element={<Auth />} />
         <Route path="*" element={<Navigate to="/dashboard/home" replace />} />
       </Routes>
+      <ToastContainer/>
    </Suspense>
   );
 }
