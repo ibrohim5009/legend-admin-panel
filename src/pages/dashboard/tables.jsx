@@ -43,7 +43,7 @@ export function Tables() {
 
     const options = {
       method: "POST",
-      url: ` https://api.abdullajonov.uz/legend-backend-api/api/admin/${token}/products/store`,
+      url: `https://api.abdullajonov.uz/legend-backend-api/api/admin/${token}/products/store`,
       headers: {
         Accept: "application/json",
       },
@@ -123,6 +123,7 @@ export function Tables() {
       },
       data: updatedData,
     };
+
     try {
       const response = await axios(options);
       fetchDatas();
@@ -143,7 +144,7 @@ export function Tables() {
   const deleteNews = async (idToDelete) => {
     try {
       const response = await axios.delete(
-        ` https://api.abdullajonov.uz/legend-backend-api/api/admin/${token}/products/${idToDelete}`,
+        `https://api.abdullajonov.uz/legend-backend-api/api/admin/${token}/products/${idToDelete}`,
         {
           headers: {
             Accept: "application.json",
@@ -184,6 +185,7 @@ export function Tables() {
     setEditingId(item.id);
     setIsEditing(true);
   };
+
   useEffect(() => {
     fetchDatas(); // Fetch product data when the component is mounted
   }, []);
@@ -380,7 +382,7 @@ export function Tables() {
               )
             )
           ) : (
-            <p>Ma'lumotlar mavjud emas</p>
+            <p className="text-lg">Ma'lumotlar mavjud emas</p>
           )}
         </div>
         <div>

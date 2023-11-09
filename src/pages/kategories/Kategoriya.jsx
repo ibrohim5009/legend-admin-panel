@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
-import { BsFillTrashFill } from 'react-icons/bs';
-import { FiEdit2 } from 'react-icons/fi';
-import { GrDocumentUpdate } from 'react-icons/gr';
+import { BsFillTrashFill } from "react-icons/bs";
+import { FiEdit2 } from "react-icons/fi";
+import { GrDocumentUpdate } from "react-icons/gr";
 import { ToastContainer } from "react-toastify";
 
 function Kategoriya() {
@@ -13,7 +13,7 @@ function Kategoriya() {
     formState: { errors },
   } = useForm();
 
-  const token = sessionStorage.getItem('token');
+  const token = sessionStorage.getItem("token");
   const [data, setData] = useState([]);
   const [editingId, setEditingId] = useState(null);
 
@@ -28,13 +28,13 @@ function Kategoriya() {
         formDataObject,
         {
           headers: {
-            "Accept": "application/json",
-          }
+            Accept: "application/json",
+          },
         }
       );
       fetchData();
-      toast.success('Kategoriya qo\'shildi', {
-        position: toast.POSITION.TOP_RIGHT
+      toast.success("Kategoriya qo'shildi", {
+        position: toast.POSITION.TOP_RIGHT,
       });
     } catch (error) {
       if (error.response && error.response.status === 422) {
@@ -42,17 +42,16 @@ function Kategoriya() {
       } else {
         console.error(error);
       }
-      toast.error('Kategoriya qo\'shilmadi', {
-        position: toast.POSITION.TOP_RIGHT
+      toast.error("Kategoriya qo'shilmadi", {
+        position: toast.POSITION.TOP_RIGHT,
       });
     }
-  }
-
+  };
 
   const fetchData = async () => {
     try {
       const response = await axios.get(
-        'https://api.abdullajonov.uz/legend-backend-api/api/parent-category/get'
+        "https://api.abdullajonov.uz/legend-backend-api/api/parent-category/get"
       );
       const data = response.data.data;
       setData(data);
@@ -67,18 +66,18 @@ function Kategoriya() {
         `https://api.abdullajonov.uz/legend-backend-api/api/admin/${token}/parent-category/${idToDelete}`,
         {
           headers: {
-            "Accept": "application/json",
-          }
+            Accept: "application/json",
+          },
         }
       );
       fetchData();
-      toast.success('Katogoriya o\'chirildi', {
-        position: toast.POSITION.TOP_RIGHT
+      toast.success("Katogoriya o'chirildi", {
+        position: toast.POSITION.TOP_RIGHT,
       });
     } catch (error) {
       console.error(error);
-      toast.error('Katogoriya o\'chirilmadi', {
-        position: toast.POSITION.TOP_RIGHT
+      toast.error("Katogoriya o'chirilmadi", {
+        position: toast.POSITION.TOP_RIGHT,
       });
     }
   };
@@ -88,7 +87,7 @@ function Kategoriya() {
       method: "POST",
       url: `https://api.abdullajonov.uz/legend-backend-api/api/admin/${token}/parent-category/${editingId}/update`,
       headers: {
-        "Accept": "application/json",
+        Accept: "application/json",
       },
       data: { name: formData.name },
     };
@@ -97,13 +96,13 @@ function Kategoriya() {
       const response = await axios(options);
       setEditingId(null);
       fetchData();
-      toast.success('Katogoriya taxrirlandi', {
-        position: toast.POSITION.TOP_RIGHT
+      toast.success("Katogoriya taxrirlandi", {
+        position: toast.POSITION.TOP_RIGHT,
       });
     } catch (error) {
       console.error(error);
-      toast.error('Katogoriya taxrirlanmadi', {
-        position: toast.POSITION.TOP_RIGHT
+      toast.error("Katogoriya taxrirlanmadi", {
+        position: toast.POSITION.TOP_RIGHT,
       });
     }
   };
@@ -113,52 +112,72 @@ function Kategoriya() {
   }, []);
 
   return (
-    <div className="mt-10 mx-auto flex max-w-screen-lg flex-col gap-8 min-h-[840px] min-w-full bg-white shadow-2xl">
+    <div className="container mx-auto mt-10 flex min-h-[840px] min-w-full max-w-screen-lg flex-col gap-8 bg-white shadow-2xl">
       <div className="mx-3 mt-16 mb-6 lg:mx-4">
         <div className="">
-          <div className=" flex-wrap flex md:flex gap-4">
-            <form className=" flex md:block" onSubmit={handleSubmit(onSubmit)}>
-              <div className=" flex-wrap flex md:flex items-center">
+          <div className="flex flex-wrap gap-4 md:flex">
+            <form className="md:block" onSubmit={handleSubmit(onSubmit)}>
+              <div className="items-center md:flex">
                 <input
                   type="text"
                   placeholder="Katogoriya nomi"
-                  className=" w-40 ml-0  md:w-52 h-10 px-4 py-2 border-2 border-[#dee2e6] rounded-lg focus:outline-none focus:border-blue-400 placeholder-gray-600 ml-5"
+                  className="ml-5 h-10 rounded-lg border-2 w-[300px]  border-[#dee2e6] px-4 py-2 placeholder-gray-600 focus:border-blue-400 focus:outline-none md:w-52"
                   {...register("name")}
                 />
                 <input
                   type="text"
                   placeholder="Slug nomi"
-                  className=" w-40 md:w-52 h-10 px-4 py-2 border-2 border-[#dee2e6] rounded-lg focus:outline-none focus:border-blue-400 placeholder-gray-600 ml-5"
+                  className=" ml-5 h-10 w-40 rounded-lg border-2 border-[#dee2e6] px-4 py-2 placeholder-gray-600 focus:border-blue-400 focus:outline-none md:w-52"
                   {...register("slug")}
                 />
-                <button type="submit" className=" w-52 h-10 px-4 py-2 flex text-center border-2 border-[#dee2e6] text-black rounded-lg ml-5 hover:bg-blue-400 hover:border-blue-400 hover:text-white">
+                <button
+                  type="submit"
+                  className=" ml-5 flex h-10 w-52 rounded-lg border-2 border-[#dee2e6] px-4 py-2 text-center text-black hover:border-blue-400 hover:bg-blue-400 hover:text-white"
+                >
                   <span>Ma'lumotlarni qo'shish</span>
                 </button>
               </div>
             </form>
-            <div className="w-[50rem] grid gap-4 ml-5 max-h-[670px] overflow-y-auto">
+            <div className="md:ml-5 grid max-h-[670px] w-[50rem] gap-4 overflow-y-auto">
               {data.map((category) => (
-                <div className="w-full border-2 border-[#dee2e6] flex items-center justify-evenly p-2" key={category.id}>
-                  <span className="w-full text-gray-700 font-bold">{category.name}</span>
+                <div
+                  className="flex w-full items-center justify-evenly border-2 border-[#dee2e6] p-2"
+                  key={category.id}
+                >
+                  <span className="w-full font-bold text-gray-700">
+                    {category.name}
+                  </span>
                   <div className="flex gap-11">
-                    <button className="w-44 h-10 px-4 py-2 border-2 border-red text-red-600 rounded-lg flex items-center justify-evenly" onClick={() => deleteParentCategory(category.id)}>
+                    <button
+                      className="border-red flex h-10 w-44 items-center justify-evenly rounded-lg border-2 px-4 py-2 text-red-600"
+                      onClick={() => deleteParentCategory(category.id)}
+                    >
                       <BsFillTrashFill /> O'chirish
                     </button>
-                    <button className="w-44 h-10 px-4 py-2 border-2 border-blue-400 text-blue-600 rounded-lg flex items-center justify-evenly" onClick={() => setEditingId(category.id)}>
+                    <button
+                      className="flex h-10 w-44 items-center justify-evenly rounded-lg border-2 border-blue-400 px-4 py-2 text-blue-600"
+                      onClick={() => setEditingId(category.id)}
+                    >
                       <FiEdit2 /> Tahrirlash
                     </button>
                   </div>
 
                   {editingId !== null && editingId === category.id ? (
-                    <form className="kategoriya_dates" onSubmit={handleSubmit(onEdit)}>
+                    <form
+                      className="kategoriya_dates"
+                      onSubmit={handleSubmit(onEdit)}
+                    >
                       <input
                         defaultValue={category.name}
                         type="text"
                         placeholder="Updated Text"
-                        className="w-52 h-10 px-4 py-2 border-2 border-blue-700 bg-blue-700 text-white rounded-lg focus:outline-none placeholder-gray-100 ml-5"
+                        className="ml-5 h-10 w-52 rounded-lg border-2 border-blue-700 bg-blue-700 px-4 py-2 text-white placeholder-gray-100 focus:outline-none"
                         {...register("name")}
                       />
-                      <button type="submit" className="w-52 h-10 px-4 py-2 bg-blue-800 text-white rounded-lg text-center ml-5">
+                      <button
+                        type="submit"
+                        className="ml-5 h-10 w-52 rounded-lg bg-blue-800 px-4 py-2 text-center text-white"
+                      >
                         <GrDocumentUpdate /> Updated
                       </button>
                     </form>
@@ -171,9 +190,8 @@ function Kategoriya() {
           </div>
         </div>
       </div>
-      <ToastContainer/>
+      <ToastContainer />
     </div>
-
   );
 }
 
