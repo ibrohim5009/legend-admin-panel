@@ -43,7 +43,7 @@ export function Tables() {
 
     const options = {
       method: "POST",
-      url: ` https://api.abdullajonov.uz/legend-backend-api/api/admin/${token}/products/store`,
+      url: `https://api.abdullajonov.uz/legend-backend-api/api/admin/${token}/products/store`,
       headers: {
         Accept: "application/json",
       },
@@ -123,6 +123,7 @@ export function Tables() {
       },
       data: updatedData,
     };
+
     try {
       const response = await axios(options);
       fetchDatas();
@@ -143,7 +144,7 @@ export function Tables() {
   const deleteNews = async (idToDelete) => {
     try {
       const response = await axios.delete(
-        ` https://api.abdullajonov.uz/legend-backend-api/api/admin/${token}/products/${idToDelete}`,
+        `https://api.abdullajonov.uz/legend-backend-api/api/admin/${token}/products/${idToDelete}`,
         {
           headers: {
             Accept: "application.json",
@@ -184,6 +185,7 @@ export function Tables() {
     setEditingId(item.id);
     setIsEditing(true);
   };
+
   useEffect(() => {
     fetchDatas(); // Fetch product data when the component is mounted
   }, []);
@@ -220,7 +222,7 @@ export function Tables() {
             />
           </form>
         </div>
-        <div className="grid grid-cols-4 gap-5 justify-around">
+        <div className=" mt-5 flex items-center justify-around gap-5">
           {Array.isArray(products) ? (
             input?.length !== 0 &&
             products.map((item) =>
@@ -337,10 +339,9 @@ export function Tables() {
                   )}
                 </div>
               ) : (
-                // Displaying item details
                 <div
                   key={item.id}
-                  className="team-member m-4 w-80 rounded-lg border border-gray-300 "
+                  className="team-member m-4 w-80 rounded-lg border border-gray-300"
                 >
                   <img
                     src={`https://api.abdullajonov.uz/legend-backend-api/public/storage/images/${item.image}`}
@@ -379,7 +380,7 @@ export function Tables() {
               )
             )
           ) : (
-            <p>Ma'lumotlar mavjud emas</p>
+            <p className="text-lg">Ma'lumotlar mavjud emas</p>
           )}
         </div>
         <div>
@@ -500,8 +501,7 @@ export function Tables() {
           </Popup>
         </div>
 
-        <div className=" mt-5 flex gap-5 items-center justify-around">
-        <div className=" mt-5 grid grid-cols-4">
+        <div className=" mt-5 flex items-center justify-around gap-5">
           {Array.isArray(datas) ? (
             datas.map((item) =>
               isEditing && editingId === item.id ? (
