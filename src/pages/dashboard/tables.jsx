@@ -114,6 +114,8 @@ export function Tables() {
     updatedData.append("slug", formData.slug);
     updatedData.append("shipping_price", formData.shipping_price);
     updatedData.append("image", formData.image[0]);
+    updatedData.append("image_2", formData.image_2[0]);
+    updatedData.append("image_3", formData.image_3[0]);
 
     const options = {
       method: "POST",
@@ -442,31 +444,70 @@ export function Tables() {
                   <input
                     type="file"
                     placeholder="image_upload"
-                    className="ml-4 h-10 w-60 rounded-lg border border-black p-2"
+                    className="ml-0 h-10 w-48 rounded-lg border border-black p-2"
                     {...register("image")}
+                  />
+                  {errors.image && (
+                    <span className="ml-0 text-sm text-red-500">
+                      This field is required.
+                    </span>
+                  )}
+                  <input
+                    type="file"
+                    placeholder="image_upload"
+                    className="ml-0 h-10 w-48 rounded-lg border border-black p-2"
+                    {...register("image_2")}
+                  />
+                  <input
+                    type="file"
+                    placeholder="image_upload"
+                    className="ml-4 h-10 w-48 rounded-lg border border-black p-2"
+                    {...register("image_3")}
                   />
                   {errors.image && (
                     <span className="ml-4 text-sm text-red-500">
                       This field is required.
                     </span>
                   )}
-                  <select
-                    name=""
-                    id=""
-                    {...register("category")}
-                    className="w-64 rounded-lg border border-black p-2"
-                  >
-                    {Array.isArray(data) ? (
-                      data.map((item) => (
-                        <option key={item.id} value={item.slug}>
-                          {item.name}
-                        </option>
-                      ))
-                    ) : (
-                      <option value="">Ma'lumotlar mavjud emas</option>
-                    )}
-                  </select>
                 </div>
+                <select
+                  name=""
+                  id=""
+                  {...register("category")}
+                  className="w-64 rounded-lg border border-black p-2"
+                >
+                  {Array.isArray(data) ? (
+                    data.map((item) => (
+                      <option key={item.id} value={item.slug}>
+                        {item.name}
+                      </option>
+                    ))
+                  ) : (
+                    <option value="">Ma'lumotlar mavjud emas</option>
+                  )}
+                </select>
+                <input
+                  type="text"
+                  placeholder="Size"
+                  className="w-full  rounded-lg border border-black p-2"
+                  {...register("size")}
+                />
+                {errors.slug && (
+                  <span className="ml-4 text-sm text-red-500">
+                    This field is required.
+                  </span>
+                )}
+                <input
+                  type="text"
+                  placeholder="Color"
+                  className="w-full  rounded-lg border border-black p-2"
+                  {...register("color")}
+                />
+                {errors.slug && (
+                  <span className="ml-4 text-sm text-red-500">
+                    This field is required.
+                  </span>
+                )}
                 <input
                   type="text"
                   placeholder="Nimadur"
