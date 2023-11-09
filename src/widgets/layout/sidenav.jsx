@@ -1,6 +1,8 @@
 import PropTypes from "prop-types";
 import { Link, NavLink } from "react-router-dom";
-import { XMarkIcon } from "@heroicons/react/24/outline";
+import {
+  Bars3Icon,
+} from "@heroicons/react/24/solid";
 import {
   Avatar,
   Button,
@@ -12,7 +14,7 @@ import brandImg from '../../assets/Legend.png'
 
 export function Sidenav({ brandName, routes }) {
   const [controller, dispatch] = useMaterialTailwindController();
-  const { sidenavColor, sidenavType, openSidenav } = controller;
+  const { sidenavColor, sidenavType, openSidenav, fixedNavbar } = controller;
   const sidenavTypes = {
     dark: "bg-gradient-to-br from-blue-gray-800 to-blue-gray-900",
     white: "bg-white shadow-lg",
@@ -21,26 +23,34 @@ export function Sidenav({ brandName, routes }) {
 
   return (
     <aside
-      className={`${sidenavTypes[sidenavType]} ${
-        openSidenav ? "translate-x-0" : "-translate-x-80"
-      } fixed inset-0 z-50 my-4 ml-4 h-[calc(150vh-32px)] w-72 rounded-xl transition-transform duration-300 xl:translate-x-0`}
+      className={`${sidenavTypes[sidenavType]} ${openSidenav ? "translate-x-0" : "-translate-x-80"
+        } overflow-y-auto fixed inset-0 z-50 my-4 ml-4 h-[calc(100vh-32px)] w-72 rounded-xl transition-transform duration-300 xl:translate-x-0`}
     >
       <div
-        className={`relative border-b ${
-          sidenavType === "dark" ? "border-white/20" : "border-blue-gray-50"
-        }`}
+        className={`relative border-b ${sidenavType === "dark" ? "border-white/20" : "border-blue-gray-50"
+          }`}
       >
-        <Link to="/" className="flex items-center gap-4 py-6 px-8">
-          <Avatar className=" object-cover w-22" src={brandImg} size="sm" />
-          <Typography
-            variant="h4"
-            color={sidenavType === "dark" ? "white" : "blue-gray"}
+        <div className="flex items-center gap-4 py-6 px-8">
+          <Link to="/" className="flex gap-4">
+            <Avatar className="object-cover w-22" src={brandImg} size="sm" />
+            <Typography
+              variant="h4"
+              color={sidenavType === "dark" ? "white" : "blue-gray"}
+            >
+              {brandName}
+            </Typography>
+          </Link>
+          <IconButton
+            variant="text"
+            color="blue-gray"
+            className="grid xl:hidden"
+            onClick={() => setOpenSidenav(dispatch, !openSidenav)}
           >
-            {brandName}
-          </Typography>
-        </Link>
+            <Bars3Icon strokeWidth={3} className="h-6 w-6 text-blue-gray-500" />
+          </IconButton>
+       </div>
       </div>
-      <div className="m-4">
+      <div className="m-2">
         {routes.map(({ layout, title, pages }, key) => (
           <ul key={key} className="mb-4 flex flex-col gap-1">
             {title && (
@@ -64,8 +74,8 @@ export function Sidenav({ brandName, routes }) {
                         isActive
                           ? sidenavColor
                           : sidenavType === "dark"
-                          ? "white"
-                          : "blue-gray"
+                            ? "white"
+                            : "blue-gray"
                       }
                       className="flex items-center gap-4 px-4 capitalize"
                       fullWidth

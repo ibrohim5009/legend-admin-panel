@@ -222,7 +222,7 @@ export function Tables() {
             />
           </form>
         </div>
-        <div className=" mt-5 flex items-center justify-around gap-5">
+        <div className=" flex-wrap md:flex gap-5 justify-around">
           {Array.isArray(products) ? (
             input?.length !== 0 &&
             products.map((item) =>
@@ -230,7 +230,7 @@ export function Tables() {
                 // Edit form
                 <div
                   key={item.id}
-                  className="m-4 w-80 rounded-lg border border-gray-300 p-4"
+                  className="md:m-4 w-80 rounded-lg border border-gray-300 p-4 "
                 >
                   {isEditing && (
                     <form className="edit-form" onSubmit={handleSubmit(onEdit)}>
@@ -339,43 +339,45 @@ export function Tables() {
                   )}
                 </div>
               ) : (
-                <div
-                  key={item.id}
-                  className="team-member m-4 w-80 rounded-lg border border-gray-300"
-                >
-                  <img
-                    src={`https://api.abdullajonov.uz/legend-backend-api/public/storage/images/${item.image}`}
-                    alt=""
-                    className="h-48 w-full rounded-t-lg object-cover"
-                  />
-                  <div className="flex flex-col p-4">
-                    <div className="flex justify-between">
-                      <p className="text-xl font-semibold">{item.name}</p>
-                      <p className="text-lg">{item.price}</p>
-                    </div>
-                    <div className="mt-3 flex justify-between">
-                      <p className="text-lg">{item.description}</p>
-                      <p className="text-lg">{item.slug}</p>
-                    </div>
-                    <div className="mt-3 flex justify-between">
-                      <p className="text-lg">{item.shipping_price}</p>
-                      <p className="text-lg">{item.category}</p>
-                    </div>
-                  </div>
-                  <div className="m-4 flex justify-center">
-                    <button
-                      onClick={() => deleteNews(item.id)}
-                      className="mr-2 flex h-10 w-40 items-center justify-center rounded-lg border border-red-500"
+                  <div className="">
+                    <div
+                      key={item.id}
+                      className="team-member m-4 w-80 rounded-lg border border-gray-300 "
                     >
-                      <BsFillTrashFill className="text-xl text-red-500" />
-                    </button>
-                    <button
-                      onClick={() => editNews(item)}
-                      className="flex h-10 w-40 items-center justify-center rounded-lg border border-blue-500"
-                    >
-                      <FiEdit2 className="text-xl text-blue-500" />
-                    </button>
-                  </div>
+                      <img
+                        src={`https://api.abdullajonov.uz/legend-backend-api/public/storage/images/${item.image}`}
+                        alt=""
+                        className="h-48 w-full rounded-t-lg object-cover"
+                      />
+                      <div className="flex flex-col p-4">
+                        <div className="flex justify-between">
+                          <p className="text-xl font-semibold">{item.name}</p>
+                          <p className="text-lg">{item.price}</p>
+                        </div>
+                        <div className="mt-3 flex justify-between">
+                          <p className="text-lg">{item.description}</p>
+                          <p className="text-lg">{item.slug}</p>
+                        </div>
+                        <div className="mt-3 flex justify-between">
+                          <p className="text-lg">{item.shipping_price}</p>
+                          <p className="text-lg">{item.category}</p>
+                        </div>
+                      </div>
+                      <div className="m-4 flex justify-center">
+                        <button
+                          onClick={() => deleteNews(item.id)}
+                          className="mr-2 flex h-10 w-40 items-center justify-center rounded-lg border border-red-500"
+                        >
+                          <BsFillTrashFill className="text-xl text-red-500" />
+                        </button>
+                        <button
+                          onClick={() => editNews(item)}
+                          className="flex h-10 w-40 items-center justify-center rounded-lg border border-blue-500"
+                        >
+                          <FiEdit2 className="text-xl text-blue-500" />
+                        </button>
+                      </div>
+                    </div>
                 </div>
               )
             )
@@ -501,7 +503,7 @@ export function Tables() {
           </Popup>
         </div>
 
-        <div className=" mt-5 flex items-center justify-around gap-5">
+        <div className=" flex-wrap md:mt-5 flex gap-5 items-center justify-around">
           {Array.isArray(datas) ? (
             datas.map((item) =>
               isEditing && editingId === item.id ? (

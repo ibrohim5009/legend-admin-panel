@@ -1,6 +1,6 @@
 import {
   Button,
-  Typography
+  Typography,
 } from "@material-tailwind/react";
 import PropTypes from "prop-types";
 import React from "react";

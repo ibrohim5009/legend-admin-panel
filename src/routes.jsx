@@ -6,7 +6,9 @@ import {
   ArrowRightOnRectangleIcon,
   CubeIcon,
   FolderPlusIcon,
-  NewspaperIcon
+  NewspaperIcon,
+  ClipboardDocumentIcon,
+  RssIcon
 } from "@heroicons/react/24/solid";
 import { Home, Profile, Tables } from "@/pages/dashboard";
 import { SignIn } from "@/pages/auth";
@@ -16,6 +18,9 @@ import Kategoriya from "./pages/kategories/Kategoriya";
 import PrivacyPolice from "./pages/privacyandpolicy/PrivacyPolice";
 import History from "./pages/history/History";
 import News from "./pages/news/News";
+import MainpageNews from "./pages/mainpagenews/MainpageNews";
+import Discount from "./pages/discount/Discount";
+import SocialNetwork from "./pages/socialNetwork/SocialNetwork";
 
 const icon = {
   className: "w-5 h-5 text-inherit",
@@ -78,6 +83,24 @@ export const routes = [
         name: "News",
         path: "/news",
         element: <News />,
+      },
+      {
+        icon: <NewspaperIcon {...icon} />,
+        name: "MainpageNews",
+        path: "/mainpagenews",
+        element: <MainpageNews />,
+      },
+      {
+        icon: <ClipboardDocumentIcon {...icon} />,
+        name: "Discount",
+        path: "/discount",
+        element: <Discount />,
+      },
+      {
+        icon: <RssIcon {...icon} />,
+        name: "SocialNetwork",
+        path: "/socialnetwork",
+        element: <SocialNetwork />,
       },
     ],
   },

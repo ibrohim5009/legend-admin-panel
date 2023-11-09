@@ -5,19 +5,9 @@ import {
   Button,
   IconButton,
   Breadcrumbs,
-  Input,
-  Menu,
-  MenuHandler,
-  MenuList,
-  MenuItem,
-  Avatar,
 } from "@material-tailwind/react";
 import {
-  UserCircleIcon,
-  Cog6ToothIcon,
-  BellIcon,
-  ClockIcon,
-  CreditCardIcon,
+  ArrowRightOnRectangleIcon,
   Bars3Icon,
 } from "@heroicons/react/24/solid";
 import {
@@ -95,14 +85,15 @@ export function DashboardNavbar() {
             className="hidden items-center gap-1 px-4 xl:flex"
             onClick={LogoutComponent}
             >
-              <UserCircleIcon className="h-5 w-5 text-blue-gray-500" />
-            </Button>
+            <ArrowRightOnRectangleIcon className="h-5 w-5 text-blue-gray-500" />
+            Log out
+          </Button>
             <IconButton
               variant="text"
               color="blue-gray"
               className="grid xl:hidden"
             >
-              <UserCircleIcon className="h-5 w-5 text-blue-gray-500" />
+            <ArrowRightOnRectangleIcon className="h-5 w-5 text-blue-gray-500" />
             </IconButton>
         </div>
       </div>
