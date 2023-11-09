@@ -17,7 +17,6 @@ function App() {
   const navigates = useNavigate();
   useEffect(() => {
     let token = sessionStorage.getItem('token');
-    console.log(token);
     if (!token) {
       navigates('auth/sign-in');
     }

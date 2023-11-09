@@ -4,6 +4,7 @@ import axios from "axios";
 import { BsFillTrashFill } from 'react-icons/bs';
 import { FiEdit2 } from 'react-icons/fi';
 import { GrDocumentUpdate } from 'react-icons/gr';
+import { ToastContainer } from "react-toastify";
 
 function Kategoriya() {
   const {
@@ -32,18 +33,18 @@ function Kategoriya() {
         }
       );
       fetchData();
-      // toast.success('Kategoriya qo\'shildi', {
-      //   position: toast.POSITION.TOP_RIGHT
-      // });
+      toast.success('Kategoriya qo\'shildi', {
+        position: toast.POSITION.TOP_RIGHT
+      });
     } catch (error) {
       if (error.response && error.response.status === 422) {
         console.error("Validation Error:", error.response.data);
       } else {
         console.error(error);
       }
-      // toast.error('Kategoriya qo\'shilmadi', {
-      //   position: toast.POSITION.TOP_RIGHT
-      // });
+      toast.error('Kategoriya qo\'shilmadi', {
+        position: toast.POSITION.TOP_RIGHT
+      });
     }
   }
 
@@ -96,14 +97,14 @@ function Kategoriya() {
       const response = await axios(options);
       setEditingId(null);
       fetchData();
-      // toast.success('Katogoriya taxrirlandi', {
-      //   position: toast.POSITION.TOP_RIGHT
-      // });
+      toast.success('Katogoriya taxrirlandi', {
+        position: toast.POSITION.TOP_RIGHT
+      });
     } catch (error) {
       console.error(error);
-      // toast.error('Katogoriya taxrirlanmadi', {
-      //   position: toast.POSITION.TOP_RIGHT
-      // });
+      toast.error('Katogoriya taxrirlanmadi', {
+        position: toast.POSITION.TOP_RIGHT
+      });
     }
   };
 
@@ -115,19 +116,19 @@ function Kategoriya() {
     <div className="mt-10 mx-auto flex max-w-screen-lg flex-col gap-8 min-h-[840px] min-w-full bg-white shadow-2xl">
       <div className="mx-3 mt-16 mb-6 lg:mx-4">
         <div className="">
-          <div className="grid gap-4">
-            <form className="" onSubmit={handleSubmit(onSubmit)}>
-              <div className="flex items-center">
+          <div className=" flex-wrap flex md:flex gap-4">
+            <form className=" flex md:block" onSubmit={handleSubmit(onSubmit)}>
+              <div className=" flex-wrap flex md:flex items-center">
                 <input
                   type="text"
                   placeholder="Katogoriya nomi"
-                  className="w-52 h-10 px-4 py-2 border-2 border-[#dee2e6] rounded-lg focus:outline-none focus:border-blue-400 placeholder-gray-600 ml-5"
+                  className=" w-40 ml-0  md:w-52 h-10 px-4 py-2 border-2 border-[#dee2e6] rounded-lg focus:outline-none focus:border-blue-400 placeholder-gray-600 ml-5"
                   {...register("name")}
                 />
                 <input
                   type="text"
                   placeholder="Slug nomi"
-                  className="w-52 h-10 px-4 py-2 border-2 border-[#dee2e6] rounded-lg focus:outline-none focus:border-blue-400 placeholder-gray-600 ml-5"
+                  className=" w-40 md:w-52 h-10 px-4 py-2 border-2 border-[#dee2e6] rounded-lg focus:outline-none focus:border-blue-400 placeholder-gray-600 ml-5"
                   {...register("slug")}
                 />
                 <button type="submit" className=" w-52 h-10 px-4 py-2 flex text-center border-2 border-[#dee2e6] text-black rounded-lg ml-5 hover:bg-blue-400 hover:border-blue-400 hover:text-white">
@@ -170,6 +171,7 @@ function Kategoriya() {
           </div>
         </div>
       </div>
+      <ToastContainer/>
     </div>
 
   );
